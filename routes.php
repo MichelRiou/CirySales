@@ -19,7 +19,7 @@ function autoloader($class) {
 }
 spl_autoload_register("autoloader");
 
-//    $manageAdmin = controller\AdminController::getInstance();
+  $manageAdmin = controller\AdminController::getInstance();
 //if ($manageAdmin->controlSession()) {
 
     /**
@@ -29,6 +29,32 @@ spl_autoload_register("autoloader");
         $action = filter_input(INPUT_GET, "action");
         if ($action !== null) {
             switch ($action) {
+                /**
+                 * ROUTE : Demande de déconnection
+                 */
+                 case 'disconnectUser':
+                    $manageAdmin->disconnectUser();
+
+                    break;
+                case 'connectUser':
+                    $username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_STRING);
+                    $password = filter_input(INPUT_POST, "password", FILTER_SANITIZE_STRING);
+                    $manageAdmin->controlSession();
+
+                    break;
+                /**
+                 * ROUTE : Demande d'identification
+                 */
+               // case 'connectUser':
+                    /*$id = filter_input(INPUT_GET, "id");
+                    if (filter_var($id, FILTER_VALIDATE_INT) !== false) {
+                        $manageQuiz = controller\QuizController::getInstance();
+                        $manageQuiz->manageQuiz($id);
+                    } else {
+                        throw new Exception('Erreur dans la requête');
+                    }*/
+                  //  $manageAdmin->controlSession();
+                  //  break;*/    
                 /**
                  * ROUTE : Utilisation du formulaire
                  */

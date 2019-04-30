@@ -9,7 +9,7 @@
                             <h3 class="mb-0">Identification</h3>
                         </div>
                         <div class="card-body">
-                            <form   method="POST" action="routes.php?" name="">
+                            <form   method="POST" action="routes.php?action=connectUser" name="">
                                 <div class="form-group">
                                     <label for="username">Utilisateur</label>
                                     <input type="text" 

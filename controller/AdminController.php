@@ -34,10 +34,10 @@ class AdminController extends Controller {
                 $user = $adminDAO->selectUser($username, $password, 'yes');
                 if ($user != null) {
                     $_SESSION["user"] = serialize($user);
-                    $bu = $user->getUser_default_bu();
+                    /*$bu = $user->getUser_default_bu();*/
 
-                    if ($bu != 0)
-                        $_SESSION["bu"] = $bu;
+                   /* if ($bu != 0)
+                        $_SESSION["bu"] = $bu;*/
                     if (filter_has_var(INPUT_POST, 'rememberme')) {
                         setcookie('CAL1', $user->getUser_pseudo(), time() + 365 * 24 * 3600, null, null, false, true);
                         setcookie('CAL2', $user->getUser_password(), time() + 365 * 24 * 3600, null, null, false, true);
@@ -54,9 +54,9 @@ class AdminController extends Controller {
                     $user = $adminDAO->selectUser($_COOKIE['CAL1'], $_COOKIE['CAL2'], '');
                     if ($user != null) {
                         $_SESSION["user"] = serialize($user);
-                        $bu = $user->getUser_default_bu();
+                        /*$bu = $user->getUser_default_bu();
                         if ($bu != 0)
-                            $_SESSION["bu"] = $bu;
+                            $_SESSION["bu"] = $bu;*/
                         return true;
                         header("location:/routes.php");
                     }else {
