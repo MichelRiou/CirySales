@@ -137,18 +137,19 @@ if (isset($_SESSION['user'])) {
                 </ul> 
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item ">
-                        <a class="nav-link " href="routes.php?action=connectUser">Connection  : <?php
-                            if (isset($user)) {
-                                echo ($user->getUser_name() . " - " . $user->getUser_role_name());
+                        <?php
+                            if (!isset($user)) {
+                                echo ('<a class="nav-link " href="routes.php?action=connectUser">_</a>');
                             }
-                            ?></a>
+                            ?>
                     </li>
                 </ul>
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item ">
-                        <a class="nav-link " href="routes.php?action=disconnectUser">Utilisateur  : <?php
+                         <?php
                             if (isset($user)) {
-                                echo ($user->getUser_name() . " - " . $user->getUser_role_name());
+                              
+                                echo ('<a class="nav-link " href="routes.php?action=disconnectUser">Utilisateur  : '. $user->getUser_name() . ' - ' . $user->getUser_role_name().'</a>' );
                             }
                             ?></a>
                     </li>
