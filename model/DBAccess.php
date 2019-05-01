@@ -11,6 +11,7 @@ class DBAccess {
 
     public function __construct() {
         $properties = parse_ini_file("controller/connect.properties");
+        //$properties = parse_ini_file("controller/connect_1.properties");
         $protocole = $properties["protocole"];
         $serveur = $properties["serveur"];
         $port = $properties["port"];

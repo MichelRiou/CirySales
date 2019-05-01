@@ -1,13 +1,14 @@
 <?php
 session_start();
 define('ROOT_PATH', dirname(__DIR__));
-define('DEFENSE_PATH', '\CirySales\\');
-define('ALWAYS_PATH', '/www/');
+include_once 'path.php';
+/*define('DEFENSE_PATH', '\CirySales\\');
+define('ALWAYS_PATH', '/www/');*/
 /**
  * AUTOLOADER : Référencement de la fonction d'autochargement
  */
 function autoloader($class) {
-  $classPath = ROOT_PATH . DEFENSE_PATH."${class}.php"; //defense
+  $classPath = ROOT_PATH . LOCAL_PATH."${class}.php"; //defense
   $classPath = str_replace('\\', DIRECTORY_SEPARATOR, $classPath);
 
   if (file_exists($classPath)) {

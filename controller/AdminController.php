@@ -34,46 +34,49 @@ class AdminController extends Controller {
                 $user = $adminDAO->selectUser($username, $password, 'yes');
                 if ($user != null) {
                     $_SESSION["user"] = serialize($user);
-                    /*$bu = $user->getUser_default_bu();*/
+                    /* $bu = $user->getUser_default_bu(); */
 
-                   /* if ($bu != 0)
-                        $_SESSION["bu"] = $bu;*/
+                    /* if ($bu != 0)
+                      $_SESSION["bu"] = $bu; */
                     if (filter_has_var(INPUT_POST, 'rememberme')) {
                         setcookie('CAL1', $user->getUser_pseudo(), time() + 365 * 24 * 3600, null, null, false, true);
                         setcookie('CAL2', $user->getUser_password(), time() + 365 * 24 * 3600, null, null, false, true);
                     }
+                    header("location:/routes.php?");
                 }
             } catch (Exception $e) {
                 echo $e->getMessage();
             }
         }
         if (!isset($_SESSION['user'])) {
+            
             if (isset($_COOKIE['CAL1']) && isset($_COOKIE['CAL2'])) {
                 try {
                     $adminDAO = new \model\AdminDAO();
                     $user = $adminDAO->selectUser($_COOKIE['CAL1'], $_COOKIE['CAL2'], '');
                     if ($user != null) {
                         $_SESSION["user"] = serialize($user);
-                        /*$bu = $user->getUser_default_bu();
-                        if ($bu != 0)
-                            $_SESSION["bu"] = $bu;*/
+                        /* $bu = $user->getUser_default_bu();
+                          if ($bu != 0)
+                          $_SESSION["bu"] = $bu; */
                         return true;
                         header("location:/routes.php");
-                    }else {
+                    } else {
                         // $messageErreur='Identifiant ou mot de passe erroné';
-                       // require('view/frontend/login.php');
-                         $this->getViewContent('login', array(), 'template');
+                        // require('view/frontend/login.php');
+                        $this->getViewContent('login', array(), 'template');
                         return false;
                     }
                 } catch (Exception $e) {
                     echo '<h1>Erreur : ' . $e->getMessage() . '</h1>';
                 }
             } else {
-                $messageErreur='';
-                if (filter_has_var(INPUT_POST, 'username') && filter_has_var(INPUT_POST, 'password')){
-                    $messageErreur = 'Identifiant ou mot de passe erroné';}
-                  $this->getViewContent('login', array('messageErreur'=>$messageErreur), 'template');
-               // require('view/frontend/login.php');
+                $messageErreur = '';
+                if (filter_has_var(INPUT_POST, 'username') && filter_has_var(INPUT_POST, 'password')) {
+                    $messageErreur = 'Identifiant ou mot de passe erroné';
+                }
+                $this->getViewContent('login', array('messageErreur' => $messageErreur), 'template');
+                // require('view/frontend/login.php');
                 return false;
             }
         } else {
