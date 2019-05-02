@@ -2,8 +2,10 @@
 define('ROOT_PATH', dirname(__DIR__));
 define('DEFENSE_PATH', '\CirySales\\');
 define('ALWAYS_PATH', '/www/');
+define ('DB_ACCESS', 'connect_1');
 function autoloader($class){
-    $classPath = ROOT_PATH . DEFENSE_PATH."${class}.php"; 
+    $classPath = ROOT_PATH . ALWAYS_PATH."${class}.php"; 
+    $classPath = str_replace('\\', DIRECTORY_SEPARATOR, $classPath);
     echo ('Appel de la classe :' .$classPath.'<br>'   );
     if (file_exists($classPath)) {
         include_once $classPath;
@@ -13,16 +15,11 @@ function autoloader($class){
 }
 // Référencement de la fonction d'autochargement
 spl_autoload_register("autoloader");
-echo ("autoloader chargé");
-/*require_once('model/RequestManager.php');
-require_once('model/TagDAO.php');
-require_once('model/TagRequestDAO.php');
-require_once('model/TagRequest.php'); */ 
-
-
+echo ("autoloader chargé<br>");
    $UserDAO = new \model\AdminDAO();
-    $user= new \model\User('','olivier','olivier Guillonneau','o.guillonneau@mdaparis.fr','stockvet','1');
-    echo ("user chargé");
+   echo ("userDAO chargé<br>");
+    $user= new \model\User('','sylvie','sylvie G','m.riou@mdaparis.fr','123','3');
+    echo ("user chargé<br>");
      echo ("objet User  :" . var_dump($user));
     $result = $UserDAO->insertUser($user);
     $test=($result==1?"Cool":"Not cool");

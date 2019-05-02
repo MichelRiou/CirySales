@@ -35,7 +35,8 @@ class UserDAO extends DAOManager {
    public function insertUser($objet) {
         $rowAffected = 0;
         try {
-            $db = $this->dbConnect();
+           // $db = $this->dbConnect();
+              $db = $this::getDBInstance();
             $req = $db->prepare('INSERT INTO users (user_pseudo,user_name,user_email,user_password,user_role) VALUES(?,?,?,?,?)');
             $req->bindValue(1, $objet->getUser_pseudo());
             $req->bindValue(2, $objet->getUser_name());
