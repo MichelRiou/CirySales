@@ -39,7 +39,7 @@ class CustomerDAO extends DBAccess {
      * @param \model\Form $objet
      * @return int 
      */
-    public function addForm(Form $objet) {
+    public function addWebCustomer(Customer $objet) {
         $affectedRows = 0;
         try {
             $db = $this::getDBInstance();

@@ -71,6 +71,19 @@ try {
                   throw new Exception('Erreur dans la requête');
                   } */
                 break;
+            
+            case 'addWebCustomer':
+                //$bu = $_SESSION['bu'];
+                $lastname = filter_input(INPUT_GET, "lastname");
+                $firstname = filter_input(INPUT_GET, "firstname");
+                $email = filter_input(INPUT_GET, "email");
+                if (isset($lastname) && isset($firstname) && isset($email)) {
+                    $manageCustomer = controller\CustomerController::getInstance();
+                    $manageCustomer->addWebCustomer();
+                } else {
+                    throw new Exception('Erreur de paramètre');
+                }
+                break;
             /**
              * ROUTE : Affichage résultat du formulaire de recherche
              */
@@ -288,17 +301,7 @@ try {
                 }
                 break;
             //done
-            case 'addTag':
-                $bu = $_SESSION['bu'];
-                $name = filter_input(INPUT_GET, "name");
-                $designation = filter_input(INPUT_GET, "designation");
-                if (isset($bu) && isset($name) && isset($designation)) {
-                    $manageTag = controller\TagController::getInstance();
-                    $manageTag->addTag($bu, $name, $designation);
-                } else {
-                    throw new Exception('Erreur de paramètre');
-                }
-                break;
+            
             case 'addResponse':
                 $idQuestion = filter_input(INPUT_GET, "idQuestion");
                 $addName = filter_input(INPUT_GET, "addName", FILTER_SANITIZE_STRING);

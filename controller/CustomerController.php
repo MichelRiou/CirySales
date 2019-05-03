@@ -34,7 +34,18 @@ class CustomerController extends Controller {
           'searchtypes' => $searchtypes,
           'bu' => $bu), 'template'); */
     }
+    
+    public function addWebCustomer($lastname, $firstname, $email) {
 
+        $customerDAO = new \model\CustomerDAO();
+        $objet = new \model\Customer();
+        $objet->setCustomer_lastname($lastname);
+        $objet->setCustomer_firstname($firstname);
+        $objet->setCustomer_email($email);
+        $result = $customerDAO->addWebCustomer($objet);
+        // Pour requête AJAX
+        echo $result;
+    }
     /**
      * AFFICHAGE DES FORMULAIRES - DETAILS
      * @param int $bu
@@ -56,20 +67,7 @@ class CustomerController extends Controller {
      * @param int $searchtype
      * @param int $userId
      */
-    public function addForm($bu, $name, $designation, $category, $searchtype, $userId) {
-
-        $quizDAO = new \model\QuizDAO();
-        $objet = new \model\Form();
-        $objet->setForm_bu($bu);
-        $objet->setForm_name($name);
-        $objet->setForm_designation($designation);
-        $objet->setForm_category($category);
-        $objet->setForm_searchtype($searchtype);
-        $objet->setForm_user_create($userId);
-        $result = $quizDAO->addForm($objet);
-        // Pour requête AJAX
-        echo $result;
-    }
+    
 
     /**
      * UTILISATION DU FORMULAIRE
