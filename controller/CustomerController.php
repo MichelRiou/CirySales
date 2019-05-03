@@ -28,7 +28,7 @@ class CustomerController extends Controller {
           $searchtypes = $quizDAO->selectAllSearchType();
           $BusinessDAO = new \model\AdminDAO();
           $bu = $BusinessDAO->selectOneBu($bu); */
-        $this->getViewContent('webcustomer2', array(), 'template');
+        $this->getViewContent('webcustomer', array(), 'template');
         /* $this->getViewContent('manageForm', array(
           'categories' => $categories,
           'searchtypes' => $searchtypes,

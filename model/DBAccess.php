@@ -11,7 +11,7 @@ class DBAccess {
 
     public function __construct() {
         // OVH
-        $properties = parse_ini_file("controller/connect_1.properties");
+        $properties = parse_ini_file("controller/connect.properties");
         // LOCAL
         //$properties = parse_ini_file("controller/" .DB_ACCESS. ".properties");
         $protocole = $properties["protocole"];
