@@ -24,7 +24,7 @@ class Customer {
      private $customer_suppression;
       private $customer_suppression_flag;
     
-      function __construct($customer_id, $customer_lastname, $customer_firstname, $customer_civility, $customer_address1, $customer_address2, $customer_address3, $customer_zipcode, $customer_city, $customer_country, $customer_size, $customer_email, $customer_sms, $customer_lastupdate, $customer_creation, $customer_validation, $customer_validation_flag, $customer_suppression, $customer_suppression_flag) {
+      function __construct($customer_id=0, $customer_lastname='', $customer_firstname='', $customer_civility='', $customer_address1='', $customer_address2='', $customer_address3='', $customer_zipcode='', $customer_city='', $customer_country='', $customer_size='', $customer_email='', $customer_sms='', $customer_lastupdate='', $customer_creation='', $customer_validation='', $customer_validation_flag='', $customer_suppression='', $customer_suppression_flag='') {
           $this->customer_id = $customer_id;
           $this->customer_lastname = $customer_lastname;
           $this->customer_firstname = $customer_firstname;

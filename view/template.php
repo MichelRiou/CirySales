@@ -111,7 +111,7 @@ if (isset($_SESSION['user'])) {
             <div class="row"></div><h2><p>Sans Javascript ce site ne peut pas fonctionner.</p></h2></div>
     </div>
     </noscript>
-    <body>
+    <body class="scrollDiv">
         <?= $content ?>
     </body>
 </html>

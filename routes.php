@@ -74,12 +74,13 @@ try {
             
             case 'addWebCustomer':
                 //$bu = $_SESSION['bu'];
-                $lastname = filter_input(INPUT_GET, "lastname");
-                $firstname = filter_input(INPUT_GET, "firstname");
-                $email = filter_input(INPUT_GET, "email");
+                $lastname = filter_input(INPUT_POST, "lastname");
+                $firstname = filter_input(INPUT_POST, "firstname");
+                $email = filter_input(INPUT_POST, "email");
                 if (isset($lastname) && isset($firstname) && isset($email)) {
                     $manageCustomer = controller\CustomerController::getInstance();
-                    $manageCustomer->addWebCustomer();
+                    $manageCustomer->addWebCustomer($lastname,$firstname,$email);
+                   // $manageAdmin->mainMenu();
                 } else {
                     throw new Exception('Erreur de paramètre');
                 }

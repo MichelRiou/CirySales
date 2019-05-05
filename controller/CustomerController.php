@@ -45,6 +45,7 @@ class CustomerController extends Controller {
         $result = $customerDAO->addWebCustomer($objet);
         // Pour requête AJAX
         echo $result;
+        //return $result;
     }
     /**
      * AFFICHAGE DES FORMULAIRES - DETAILS

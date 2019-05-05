@@ -36,7 +36,7 @@ class CustomerDAO extends DBAccess {
 
     /**
      * 
-     * @param \model\Form $objet
+     * @param \model\Cutomer $objet
      * @return int 
      */
     public function addWebCustomer(Customer $objet) {
@@ -44,18 +44,15 @@ class CustomerDAO extends DBAccess {
         try {
             $db = $this::getDBInstance();
             //$db = $this->dbConnect();
-            $req = $db->prepare('INSERT INTO forms (form_bu,form_category,form_name,form_designation,form_searchtype,form_validated,form_user_create) VALUES(?,?,?,?,?,?,?)');
-            $req->bindValue(1, $objet->getForm_bu(), \PDO::PARAM_INT);
-            $req->bindValue(2, $objet->getForm_category(), \PDO::PARAM_INT);
-            $req->bindValue(3, $objet->getForm_name(), \PDO::PARAM_STR);
-            $req->bindValue(4, $objet->getForm_designation(), \PDO::PARAM_STR);
-            $req->bindValue(5, $objet->getForm_searchtype(), \PDO::PARAM_INT);
-            $req->bindValue(6, false, \PDO::PARAM_BOOL);
-            $req->bindValue(7, $objet->getForm_user_create(), \PDO::PARAM_INT);
+            $req = $db->prepare('INSERT INTO customers (customer_lastname,customer_firstname,customer_email) VALUES(?,?,?)');
+            $req->bindValue(1, $objet->getCustomer_lastname(), \PDO::PARAM_STR);
+            $req->bindValue(2, $objet->getCustomer_firstname(), \PDO::PARAM_STR);
+            $req->bindValue(3, $objet->getCustomer_email(), \PDO::PARAM_STR);
             $req->setFetchMode(\PDO::FETCH_ASSOC);
             $req->execute();
             $affectedRows = $req->rowcount();
         } catch (PDOException $e) {
+            echo 'Échec lors de la connexion : ' . $e->getMessage();
             $affectedRows = -1;
         }
         $req->closeCursor();

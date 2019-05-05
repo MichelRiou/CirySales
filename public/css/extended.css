@@ -9,9 +9,9 @@
     width: 300px;
 }
 .main_logo{
-    height:750px;
+    height:700px;
     width: 1000px;
-    padding-top: 200px; 
+    padding-top: 50px; 
 }
 nav {
     padding-bottom: 30px; 
@@ -23,13 +23,16 @@ body {
     font-size: 15px;
     overflow-y:hidden;
 }
-.scrollDiv {
+.scrollDiv3 {
     height:700px;
     width: 600px;
     overflow-y: scroll;
 }
 .scrollDiv2 {
     height:600px;
+    overflow-y: auto;
+}
+.scrollDiv {
     overflow-y: auto;
 }
 
