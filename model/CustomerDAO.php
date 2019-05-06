@@ -41,13 +41,33 @@ class CustomerDAO extends DBAccess {
      */
     public function addWebCustomer(Customer $objet) {
         $affectedRows = 0;
+       // print_r($objet);
         try {
             $db = $this::getDBInstance();
             //$db = $this->dbConnect();
-            $req = $db->prepare('INSERT INTO customers (customer_lastname,customer_firstname,customer_email) VALUES(?,?,?)');
+           $req = $db->prepare('INSERT INTO customers (customer_lastname,customer_firstname,customer_civility,customer_address1,customer_address2,customer_zipcode,customer_city,customer_email,customer_sms) VALUES(?,?,?,?,?,?,?,?,?)');
             $req->bindValue(1, $objet->getCustomer_lastname(), \PDO::PARAM_STR);
             $req->bindValue(2, $objet->getCustomer_firstname(), \PDO::PARAM_STR);
-            $req->bindValue(3, $objet->getCustomer_email(), \PDO::PARAM_STR);
+            $req->bindValue(3, $objet->getCustomer_civility(), \PDO::PARAM_STR);
+            $req->bindValue(4, $objet->getCustomer_address1(), \PDO::PARAM_STR);
+            $req->bindValue(5, $objet->getCustomer_address2(), \PDO::PARAM_STR);
+            $req->bindValue(6, $objet->getCustomer_zipcode(), \PDO::PARAM_STR);
+            $req->bindValue(7, $objet->getCustomer_city(), \PDO::PARAM_STR);
+            $req->bindValue(8, $objet->getCustomer_email(), \PDO::PARAM_STR);
+            $req->bindValue(9, $objet->getCustomer_sms(), \PDO::PARAM_STR);
+            ///
+          /*  $req = $db->prepare('INSERT INTO customers (customer_lastname,customer_firstname,customer_civility,customer_email) VALUES(?,?,?,?)');
+            $req->bindValue(1, $objet->getCustomer_lastname(), \PDO::PARAM_STR);
+            $req->bindValue(2, $objet->getCustomer_firstname(), \PDO::PARAM_STR);
+            $req->bindValue(3, "Madame", \PDO::PARAM_STR);
+           // $req->bindValue(3, $objet->getCustomer_civility(), \PDO::PARAM_STR);
+            /*$req->bindValue(4, $objet->getCustomer_address1(), \PDO::PARAM_STR);
+            $req->bindValue(5, $objet->getCustomer_address2(), \PDO::PARAM_STR);
+            $req->bindValue(6, $objet->getCustomer_zipcode(), \PDO::PARAM_STR);
+            $req->bindValue(7, $objet->getCustomer_city(), \PDO::PARAM_STR);*/
+           /* $req->bindValue(4, $objet->getCustomer_email(), \PDO::PARAM_STR);*/
+           /* $req->bindValue(9, $objet->getCustomer_sms(), \PDO::PARAM_STR);*/
+            //
             $req->setFetchMode(\PDO::FETCH_ASSOC);
             $req->execute();
             $affectedRows = $req->rowcount();

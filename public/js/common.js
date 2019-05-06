@@ -96,75 +96,6 @@ function verif_form()
                 }
 
             }
-
-function verif_form2()
-{
-    msg = '';
-    document.getElementById("lastname").style.backgroundColor = "white";
-    document.getElementById("firstname").style.backgroundColor = "white";
-    document.getElementById("zipcode").style.backgroundColor = "white";
-    document.getElementById("email").style.backgroundColor = "white";
-    document.getElementById("sms").style.backgroundColor = "white";
-    document.getElementById("address1").style.backgroundColor = "white";
-    document.getElementById("city").style.backgroundColor = "white";
-
-    if (document.getElementById("lastname").value.trim().length < 1)
-    {
-        document.getElementById("lastname").style.backgroundColor = "orange";
-        document.getElementById("lastname").focus();
-        msg += 'Le nom est obligatoire.<br>';
-    }
-    if (document.getElementById("firstname").value.trim().length < 1)
-    {
-        document.getElementById("firstname").style.backgroundColor = "orange";
-        document.getElementById("firstname").focus();
-        msg += 'Le prénom est obligatoire.<br>';
-    }
-
-    if (document.getElementById("address1").value.length > 0
-            || document.getElementById("address2").value.length > 0
-           /* || document.getElementById("pos").value.length > 0*/
-            || document.getElementById("city").value.length > 0
-            || document.getElementById("zipcode").value.length > 0)
-    {
-        if (!checkAddress()) {
-            document.getElementById("address1").style.backgroundColor = "orange";
-            document.getElementById("city").style.backgroundColor = "orange";
-            document.getElementById("zipcode").style.backgroundColor = "orange";
-            document.getElementById("address1").focus();
-            msg += 'L\'adresse n\'est pas valide.<br>';
-        }
-    }
-    if ((document.getElementById("email").value.length > 0) && (!checkMail()))
-    {
-        document.getElementById("email").style.backgroundColor = "orange";
-        document.getElementById("email").focus();
-        msg += 'L\'email n\'est pas valable.<br>';
-    }
-    if ((document.getElementById("sms").value.length > 0) && (!checkSms()))
-    {
-        document.getElementById("sms").style.backgroundColor = "orange";
-        document.getElementById("sms").focus();
-        msg += 'Le numéro de téléphone est incorrect.<br>';
-    }
-
-
-    if (!checkMail()) {
-        document.getElementById("email").style.backgroundColor = "orange";
-        document.getElementById("email").focus();
-        msg += 'Vous devez saisir obligatoirement votre email.';
-    }
-
-    if (msg == '') {
-        return true;
-    } else
-    {
-        console.log(message);
-        document.getElementById("message").innerHTML = msg;
-        return false;
-    }
-
-}
 function searchString() {
     // RE-ECRITURE DE L'EXPRESSION contains POUR DEVENIR CASE INSENSITIVE 
     jQuery.expr[':'].contains = function (a, i, m) {
@@ -187,3 +118,4 @@ function clearSearch() {
     }
 
 }
+

@@ -96,8 +96,5 @@ class AdminController extends Controller {
         $this->getViewContent('login', array(), 'template');
     }
 
-    public function changeBU($bu) {
-        $_SESSION['bu'] = $bu;
-    }
-
+ 
 }

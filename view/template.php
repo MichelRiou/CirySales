@@ -23,7 +23,7 @@ if (isset($_SESSION['user'])) {
     </head>
     <nav>
         <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-            <a class="navbar-brand" href="#">www.ventescirylenoble.fr</a>
+            <a class="navbar-brand" href="#">VentesCiryLeNoble</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" 
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -111,7 +111,7 @@ if (isset($_SESSION['user'])) {
             <div class="row"></div><h2><p>Sans Javascript ce site ne peut pas fonctionner.</p></h2></div>
     </div>
     </noscript>
-    <body class="scrollDiv">
+    <body class="scrollDiv ohoh">
         <?= $content ?>
     </body>
 </html>
