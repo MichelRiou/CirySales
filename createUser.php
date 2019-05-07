@@ -2,7 +2,7 @@
 define('ROOT_PATH', dirname(__DIR__));
 define('DEFENSE_PATH', '\CirySales\\');
 define('ALWAYS_PATH', '/www/');
-define ('DB_ACCESS', 'connect_1');
+//define ('DB_ACCESS', 'connect_1');
 function autoloader($class){
     $classPath = ROOT_PATH . ALWAYS_PATH."${class}.php"; 
     $classPath = str_replace('\\', DIRECTORY_SEPARATOR, $classPath);
@@ -18,7 +18,7 @@ spl_autoload_register("autoloader");
 echo ("autoloader chargé<br>");
    $UserDAO = new \model\AdminDAO();
    echo ("userDAO chargé<br>");
-    $user= new \model\User('','sylvie','sylvie G','m.riou@mdaparis.fr','123','3');
+    $user= new \model\User('','sylvie','Sylvie Guillonneau','o.guillonneau@mdaparis.fr','stockvet','3');
     echo ("user chargé<br>");
      echo ("objet User  :" . var_dump($user));
     $result = $UserDAO->insertUser($user);

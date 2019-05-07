@@ -23,6 +23,14 @@ class AdminController extends Controller {
 
         $this->getViewContent('mainMenu', array(), 'template');
     }
+     public function manageContacts() {
+
+        $this->getViewContent('contacts', array(), 'template');
+    }
+     public function manageLocalisation() {
+
+        $this->getViewContent('localisation', array(), 'template');
+    }
 
     public function controlSession() {
         if (filter_has_var(INPUT_POST, 'username') && filter_has_var(INPUT_POST, 'password')) {

@@ -52,7 +52,7 @@ if (isset($_SESSION['user'])) {
                             Nous localiser
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="routes.php?action=changeBU&bu=2">Localisation</a>
+                            <a class="dropdown-item" href="routes.php?action=manageLocalisation">Localisation</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
@@ -62,11 +62,11 @@ if (isset($_SESSION['user'])) {
                             Nous contacter
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="routes.php?action=changeBU&bu=2">Message</a>
+                            <a class="dropdown-item" href="routes.php?action=manageContacts">Contacts</a>
                         </div>
                     </li>
                    
-                    <?php if (isset($user) && ($user->getUser_role() == 1)) { ?>
+                    <?php if (isset($user) && ($user->getUser_role() == 1 || $user->getUser_role() == 2)) { ?>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" 
                                role="button" data-toggle="dropdown" aria-haspopup="true" 
@@ -74,10 +74,12 @@ if (isset($_SESSION['user'])) {
                                 Back-office
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <?php if ($user->getUser_role() == 1)  { ?>
                                 <a class="dropdown-item" 
                                    href="routes.php?action=manageUser">CREER UTILISATEUR</a>
+                                 <?php } ?>
                                 <a class="dropdown-item" 
-                                   href="routes.php?action=getProductsFile">IMPORT FICHIER</a>
+                                   href="routes.php?action=manageMembers">GESTION DES INSCRITS</a>
                             </div>
                         </li>
                     <?php } ?>
@@ -86,7 +88,7 @@ if (isset($_SESSION['user'])) {
                     <li class="nav-item ">
                         <?php
                             if (!isset($user)) {
-                                echo ('<a class="nav-link " href="routes.php?action=connectUser">_</a>');
+                                echo ('<a class="nav-link " href="routes.php?action=connectUser">.</a>');
                             }
                             ?>
                     </li>

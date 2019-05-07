@@ -12,19 +12,18 @@
                 <div class="col-md-8 mx-auto ">
                     <div class="card rounded-0">
                         <div class="card-header">
-                            <h3 class="mb-0 text-center">Prochain événement</h3>
+                            <h3 class="mb-0 text-center">Contacts</h3>
                         </div>
                         <div class="card-body">
                             <form >
 
-                                <div class="form-group encart mx-auto ">
+                                <div class="form-group panneau mx-auto ">
                                     <div>
-                                        <h2><p>VENTE DE PRET A PORTER</p></h2>
+                                        <h2><p>Par mail : o.guillonneau@mdaparis.fr</p> </h2>
                                     </div>
                                     <div>
-                                        <h3> <p>LE 16 ET 17 MAI 2019</p>
-                                        <p>SALLE DES FETES</p>
-                                        <p>CIRY LE NOBLE</p></h3>
+                                        <h2> <p>Par téléphone : 02.38.45.79.15</p> </h2>
+                                       
                                     </div>
 
                                 </div>

@@ -74,7 +74,23 @@ try {
                     throw new Exception('Erreur de paramètre');
                 }
                 break;
-            
+                
+                 case 'manageContacts':
+               
+               
+                $manageAdmin->manageContacts();
+                /* } else {
+                  throw new Exception('Erreur dans la requête');
+                  } */
+                break;
+                   case 'manageLocalisation':
+               
+               
+                $manageAdmin->manageLocalisation();
+                /* } else {
+                  throw new Exception('Erreur dans la requête');
+                  } */
+                break;
             /**
              *  Traitement des routes non reconnues
              */
