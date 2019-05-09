@@ -22,7 +22,7 @@
                                         <h2><p>VENTE DE PRET A PORTER</p></h2>
                                     </div>
                                     <div>
-                                        <h3> <p>LE 16 ET 17 MAI 2019</p>
+                                        <h3> <p>LES 16 ET 17 MAI 2019</p>
                                         <p>SALLE DES FETES</p>
                                         <p>CIRY LE NOBLE</p></h3>
                                     </div>

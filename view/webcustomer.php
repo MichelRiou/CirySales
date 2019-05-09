@@ -90,6 +90,21 @@
                         if (result != 1) {
                             $("#addMessage").html('Email déjà existant.');
                         } else {
+                            $.ajax({
+                                type: 'POST',
+                                url: '/routes.php?action=sendMailCustomer',
+                                data:
+                                        {
+                                            "email": $("#email").val()
+                                        },
+                                success: function (result) {
+                                   
+                                },
+                                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                    alert(textStatus);
+                                    $("#retour").html("Erreur d\'envoi de la requête" + result);
+                                }
+                            });
                             $('#addCancel').trigger('click');
                             //refresh();
                         }
@@ -102,9 +117,7 @@
                 return false;
             }
         }));
-
-    });
-</script>
+    });</script>
 <div class="container py-5 extra">
     <div class="row">
         <div class="col-md-12">
@@ -122,7 +135,8 @@
                                     <span><input type="radio" aria-label="Radio button for following text input" name="civility" value="MR" >Mr</span>       
                                 </div>                              
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3" for="lastname">Nom:</label>
+
+                                    <label class="control-label col-sm-3" for="lastname">*Nom:</label>
                                     <div class="input-group col-md-9">
                                         <input type="text" 
                                                class="form-control form-control-sm  rounded-0" 
@@ -130,7 +144,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3" for="firstname">Prénom:</label>
+                                    <label class="control-label col-sm-3" for="firstname">*Prénom:</label>
                                     <div class="input-group col-sm-9">
                                         <input type="text" 
                                                class="form-control form-control-sm rounded-0" 
@@ -170,7 +184,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-3" for="email">E-mail:</label>
+                                    <label class="control-label col-sm-3" for="email">*E-mail:</label>
                                     <div class="col-sm-9">
                                         <input type="text" 
                                                class="form-control form-control-sm rounded-0" 
@@ -189,6 +203,7 @@
                                 <div>
                                     <button onclick="location.href = 'routes.php'" type="button" class="btn btn-success btn-sm float-left" 
                                             id="addCancel" name='toto' >Annuler</button>
+
                                     <button type="button" class="btn btn-success btn-sm float-right" 
                                             id="addWebCustomer" name='toto' >Enregistrer</button>
 

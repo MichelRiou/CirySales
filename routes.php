@@ -56,7 +56,7 @@ try {
                   throw new Exception('Erreur dans la requête');
                   } */
                 break;
-            
+
             case 'addWebCustomer':
                 $lastname = filter_input(INPUT_POST, "lastname");
                 $firstname = filter_input(INPUT_POST, "firstname");
@@ -69,27 +69,32 @@ try {
                 $sms = filter_input(INPUT_POST, "sms");
                 if (isset($lastname) && isset($firstname) && isset($email)) {
                     $manageCustomer = controller\CustomerController::getInstance();
-                    $manageCustomer->addWebCustomer($lastname,$firstname,$civility,$address1,$address2,$zipcode,$city,$email,$sms);
+                    $manageCustomer->addWebCustomer($lastname, $firstname, $civility, $address1, $address2, $zipcode, $city, $email, $sms);
                 } else {
                     throw new Exception('Erreur de paramètre');
                 }
                 break;
-                
-                 case 'manageContacts':
-               
-               
+
+            case 'manageContacts':
+
+
                 $manageAdmin->manageContacts();
                 /* } else {
                   throw new Exception('Erreur dans la requête');
                   } */
                 break;
-                   case 'manageLocalisation':
-               
-               
+            case 'manageLocalisation':
+
+
                 $manageAdmin->manageLocalisation();
                 /* } else {
                   throw new Exception('Erreur dans la requête');
                   } */
+                break;
+            case 'sendMailCustomer':
+                $email = filter_input(INPUT_POST, "email");
+                $manageCustomer = controller\CustomerController::getInstance();
+                $manageCustomer->sendMailCustomer($email);
                 break;
             /**
              *  Traitement des routes non reconnues
