@@ -1,5 +1,6 @@
 <!--<<div class="container-fluid">
     <div class="row">
+
         <div class="col-md-8 mx-auto">
             <img src="/public/images/ciry.gif" class="img-fluid main_logo mx-auto d-block">
         </div>
