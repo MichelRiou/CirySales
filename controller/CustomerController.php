@@ -67,6 +67,9 @@ class CustomerController extends Controller {
 
         
     }
+    public function manageCustomer() {
+        $this->getViewContent('manageCustomer', array(), 'template');
+    }
 
     
 

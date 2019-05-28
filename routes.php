@@ -96,6 +96,15 @@ try {
                 $manageCustomer = controller\CustomerController::getInstance();
                 $manageCustomer->sendMailCustomer($email);
                 break;
+            case 'manageCustomer':
+                /* $id = filter_input(INPUT_GET, "id");
+                  if (filter_var($id, FILTER_VALIDATE_INT) !== false) { */
+                $manageCustomer = controller\CustomerController::getInstance();
+                $manageCustomer->manageCustomer();
+                /* } else {
+                  throw new Exception('Erreur dans la requête');
+                  } */
+                break;
             /**
              *  Traitement des routes non reconnues
              */
