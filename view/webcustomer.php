@@ -117,7 +117,8 @@
                 return false;
             }
         }));
-    });</script>
+    });
+</script>
 <div class="container py-5 extra">
     <div class="row">
         <div class="col-md-12">

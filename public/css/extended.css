@@ -1,5 +1,5 @@
 .panneau{
-    height:425px;
+    height:520px;
 }
 .panneau h2{
      padding-top: 30px;
@@ -7,18 +7,18 @@
      font-size: 20px;
 }
 .encart {
-    height:425px;
+    height-min:425px;
 }
 .encart h2{
     font-family: 'arial', sans-serif;
-    font-size: 40px;
+    font-size: 3em;
     text-align: center;
     color: black;
     padding-bottom: 50px;
 }
 .encart h3{
     font-family: 'arial', sans-serif;
-    font-size: 30px;
+    font-size: 2em;
     text-align: center;
      color: black;
 }

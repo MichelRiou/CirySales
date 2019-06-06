@@ -15,25 +15,19 @@
                             <h3 class="mb-0 text-center">Prochain événement</h3>
                         </div>
                         <div class="card-body">
-                            <form >
 
-                                <div class="form-group encart mx-auto ">
-                                    <div>
-                                        <h2><p>VENTE DE PRET A PORTER<br>
-                                        FEMININ ET MASCULIN</p></h2>
-                                    </div>
-                                    <div>
-                                        <h3> <p>Vendredi 15 et samedi 16 novembre 2019</p>
-                                        <p>SALLE DES FETES</p>
-                                        <p>CIRY LE NOBLE</p></h3>
-                                    </div>
 
+                            <div class="form-group panneau  mx-auto text-center" style=" border: 2px solid black;margin:auto">
+                                <div class="my-5"  >
+                                    <h1>VENTE DE PRET A PORTER<br>
+                                        FEMININ ET MASCULIN</h1>
                                 </div>
-
-
-                            </form>
-
-                        </div>
+                                <div  >
+                                    <h3> Vendredi 15 et samedi 16 novembre 2019</h3></div>
+                                <div  ><h3>   SALLE DES FETES - 
+                                        CIRY LE NOBLE</h3></div>
+                            </div>
+                      </div>
                     </div>
                 </div>
             </div>
