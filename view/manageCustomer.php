@@ -25,7 +25,7 @@
     function refresh() {
         $.ajax({
             type: 'POST',
-            url: '/routes.php?action=listProductByCat',
+            url: '/routes.php?action=listCustomers',
             data:
                     {
                         "category": 0,
@@ -82,6 +82,45 @@
                     $('#editCategory').val(this.getAttribute('category')).prop('selected', true);*/
                    //  $('#editCategory').val('1').prop('selected', true);
 
+                    console.log(idEdit);
+                });
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert(textStatus);
+                $("#retour").html("Erreur d\'envoi de la requête");
+            }
+        });
+    }
+        function search() {
+        $.ajax({
+            type: 'POST',
+            url: '/routes.php?action=listCustomers',
+            data:
+                    {
+                        "byName": '',
+                        "byMail": '',
+                    },
+            success: function (data) {
+                $("#requete").html(data);
+                $('[data-toggle="tooltip"]').tooltip();
+                $("#addButton").click(function () {
+                    $("#message").html('');
+                    $("#addcustomerModal").modal('show');
+                });
+                $('a[class="delete"]').click(function () {
+                    idDelete = this.getAttribute('value');
+                    console.log(idDelete);
+                });
+                $('a[class="edit"]').click(function () {
+                   idEdit = this.getAttribute('value');
+                    console.log(idEdit);
+                    $('#editBuilderRef').val(this.getAttribute('builder_ref'));
+                    $('#editModel').val(this.getAttribute('model'));
+                    $('#editRef').val(this.getAttribute('ref'));
+                    $('#editBuilder').val(this.getAttribute('builder'));
+                    $('#editEan').val(this.getAttribute('ean'));
+                     $('#editCategory').val(this.getAttribute('cat'));
+                    $('#editDesignation').val(this.getAttribute('designation'));
                     console.log(idEdit);
                 });
             },
@@ -222,15 +261,21 @@
     <div class="table-wrapper">
         <div class="table-title">
             <div class="row">
-                <div class="col-sm-4">
-                    <h5>LISTE DES PRODUITS</h5><input type="hidden" value="" id="idForm">
+                <div class="col-sm-2">
+                    <h5>Gestion client</h5>
                 </div>
-                <div class="col-sm-3">		
+                <div class="col-sm-2 input-group-sm">
+                    <input type="text" class="form-control" placeholder="Entrez un nom">
+                </div>
+                 <div class="col-sm-2 input-group-sm">
+                    <input type="text" class="form-control" placeholder="Entrez un e-mail">
+                </div>
+                <div class="col-sm-4">		
                     <button id="back" class="btn btn-default" data-toggle="modal"><i class="material-icons">&#xE314;</i> <span class="black-write">Retour</span></button>
                     <button id="addButton" class="btn btn-info" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Ajouter un produit</span></button>
 
                 </div>
-                <div class="col-sm-5">
+                <div class="col-sm-2">
 
                     <input class=" pull-right" type="submit" value="Rechercher" onclick="searchString()" />
                     <input class="pull-right" id="search" name="search" type="text" value="" onfocus="clearSearch()" />
@@ -394,4 +439,4 @@
             </div>
         </div>
     </div>
-
+</div>

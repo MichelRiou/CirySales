@@ -1,10 +1,27 @@
+.container-flex{
+    display: flex; /* or inline-flex */
+    /*flex-direction: row | row-reverse | column | column-reverse;*/
+    flex-direction: row;
+    /*flex-wrap: nowrap | wrap | wrap-reverse;*/
+    flex-wrap: nowrap;
+    /*flex-flow: row nowrap; short-hand flex-direction and flex-wrap*/
+}
+.item-flex{
+    order: 0; /* default is 0 */
+    flex-grow: 0; /* default 0 */
+    flex-shrink: 1; /* default 1 */
+    flex-basis: auto; /* default auto et 0 */ 
+    /*flex: none | [ <'flex-grow'> <'flex-shrink'>? || <'flex-basis'> ] short-hand prefer it*/
+    align-self: auto;
+    /*align-self: auto | flex-start | flex-end | center | baseline | stretch;*/
+}
 .panneau{
     height:520px;
 }
 .panneau h2{
-     padding-top: 30px;
-     text-align: center;
-     font-size: 20px;
+    padding-top: 30px;
+    text-align: center;
+    font-size: 20px;
 }
 .encart {
     height-min:425px;
@@ -20,15 +37,15 @@
     font-family: 'arial', sans-serif;
     font-size: 2em;
     text-align: center;
-     color: black;
+    color: black;
 }
 .ohoh{
-  background-image: url("../../public/images/ciry4.jpg"); 
-  background-repeat: no-repeat;
-  background-size: 100% 120%;
+    background-image: url("../../public/images/ciry4.jpg"); 
+    background-repeat: no-repeat;
+    background-size: 100% 120%;
 }
 .black-write{
-   color:black;
+    color:black;
 }
 .extra{
     padding-top: 400px; 
@@ -284,5 +301,5 @@ table.table .avatar {
 }	
 .modal form label {
     font-weight: normal;
-     margin: 0;
+    margin: 0;
 }	

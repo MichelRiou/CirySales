@@ -41,11 +41,9 @@ class CustomerDAO extends DBAccess {
      */
     public function addWebCustomer(Customer $objet) {
         $affectedRows = 0;
-       // print_r($objet);
         try {
             $db = $this::getDBInstance();
-            //$db = $this->dbConnect();
-           $req = $db->prepare('INSERT INTO customers (customer_lastname,customer_firstname,customer_civility,customer_address1,customer_address2,customer_zipcode,customer_city,customer_email,customer_sms) VALUES(?,?,?,?,?,?,?,?,?)');
+            $req = $db->prepare('INSERT INTO customers (customer_lastname,customer_firstname,customer_civility,customer_address1,customer_address2,customer_zipcode,customer_city,customer_email,customer_sms) VALUES(?,?,?,?,?,?,?,?,?)');
             $req->bindValue(1, $objet->getCustomer_lastname(), \PDO::PARAM_STR);
             $req->bindValue(2, $objet->getCustomer_firstname(), \PDO::PARAM_STR);
             $req->bindValue(3, $objet->getCustomer_civility(), \PDO::PARAM_STR);
@@ -55,19 +53,6 @@ class CustomerDAO extends DBAccess {
             $req->bindValue(7, $objet->getCustomer_city(), \PDO::PARAM_STR);
             $req->bindValue(8, $objet->getCustomer_email(), \PDO::PARAM_STR);
             $req->bindValue(9, $objet->getCustomer_sms(), \PDO::PARAM_STR);
-            ///
-          /*  $req = $db->prepare('INSERT INTO customers (customer_lastname,customer_firstname,customer_civility,customer_email) VALUES(?,?,?,?)');
-            $req->bindValue(1, $objet->getCustomer_lastname(), \PDO::PARAM_STR);
-            $req->bindValue(2, $objet->getCustomer_firstname(), \PDO::PARAM_STR);
-            $req->bindValue(3, "Madame", \PDO::PARAM_STR);
-           // $req->bindValue(3, $objet->getCustomer_civility(), \PDO::PARAM_STR);
-            /*$req->bindValue(4, $objet->getCustomer_address1(), \PDO::PARAM_STR);
-            $req->bindValue(5, $objet->getCustomer_address2(), \PDO::PARAM_STR);
-            $req->bindValue(6, $objet->getCustomer_zipcode(), \PDO::PARAM_STR);
-            $req->bindValue(7, $objet->getCustomer_city(), \PDO::PARAM_STR);*/
-           /* $req->bindValue(4, $objet->getCustomer_email(), \PDO::PARAM_STR);*/
-           /* $req->bindValue(9, $objet->getCustomer_sms(), \PDO::PARAM_STR);*/
-            //
             $req->setFetchMode(\PDO::FETCH_ASSOC);
             $req->execute();
             $affectedRows = $req->rowcount();
@@ -242,108 +227,142 @@ class CustomerDAO extends DBAccess {
         return $objet;
     }
 
+    
     /**
      * 
-     * @param int $bu
-     * @return Array Form
+     * @param none
+     * @return Array Customer
      */
-    public function selectAllFormFromBu($bu, $validated='0') {
-        $forms = array();
+    public function selectAll() {
+        $objets = array();
         try {
             $db = $this::getDBInstance();
-            if ($validated == '') {
-                $sql = 'SELECT * FROM forms WHERE form_bu = ? ORDER BY form_category ASC, form_name ASC';
-                $req = $db->prepare($sql);
-                $req->bindValue(1, $bu);
-            } else {
-                $sql = 'SELECT * FROM forms WHERE form_bu = ? and form_validated = ? ORDER BY form_category ASC, form_name ASC';
-                $req = $db->prepare($sql);
-                $req->bindValue(1, $bu);
-                $req->bindValue(2, $validated);
-            }
-
+            $sql = 'SELECT * FROM customers ORDER BY customer_lastname';
+            $req = $db->prepare($sql);
+            /* $req->bindValue(1, $bu);
+              $req->bindValue(2, $validated); */
             $req->setFetchMode(\PDO::FETCH_ASSOC);
             $req->execute();
             while ($enr = $req->fetch()) {
-                $objet = new Form();
-                $objet->setForm_id($enr['form_id']);
-                $objet->setForm_bu($enr['form_bu']);
-                $objet->setForm_category($enr['form_category']);
-                $objet->setForm_name($enr['form_name']);
-                $objet->setForm_designation($enr['form_designation']);
-                $objet->setForm_searchtype($enr['form_searchtype']);
-                $objet->setForm_validated($enr['form_validated']);
-                $objet->setForm_user_create($enr['form_user_create']);
-                $forms[] = $objet;
+                $objet = new Customer();
+                $objet->setCustomer_id($enr['customer_id']);
+                $objet->setCustomer_lastname($enr['customer_lastname']);
+                $objet->setCustomer_firstname($enr['customer_firstname']);
+                $objet->setCustomer_civility($enr['customer_civility']);
+                $objet->setCustomer_address1($enr['customer_address1']);
+                $objet->setCustomer_address2($enr['customer_address2']);
+                $objet->setCustomer_address3($enr['customer_address3']);
+                $objet->setCustomer_zipcode($enr['customer_zipcode']);
+                $objet->setCustomer_city($enr['customer_city']);
+                $objet->setCustomer_country($enr['customer_country']);
+                $objet->setCustomer_size($enr['customer_size']);
+                $objet->setCustomer_email($enr['customer_email']);
+                $objet->setCustomer_sms($enr['customer_sms']);
+                $objet->setCustomer_lastupdate($enr['customer_lastupdate']);
+                $objet->setCustomer_creation($enr['customer_creation']);
+                $objet->setCustomer_validation($enr['customer_validation']);
+                $objet->setCustomer_validation_flag($enr['customer_validation_flag']);
+                $objet->setCustomer_suppression($enr['customer_suppression']);
+                $objet->setCustomer_suppression_flag($enr['customer_suppression_flag']);
+                $objets[] = $objet;
             }
         } catch (PDOException $e) {
             $objet = null;
-            $forms[] = $objet;
+            $objets[] = $objet;
         }
         $req->closeCursor();
-        return $forms;
+        return $objets;
     }
-
     /**
      * 
-     * @return Array SearchType
+     * @param string $name
+     * @return Array Customer
      */
-    public function selectAllSearchType() {
-        $searchtypes = array();
+    public function selectByName($name) {
+        $objets = array();
         try {
             $db = $this::getDBInstance();
-            //$db = $this->dbConnect();
-            $req = $db->prepare('SELECT * FROM searchtypes');
+            $sql = 'SELECT * FROM customers where customer_lastname = ? ORDER BY customer_firstname';
+            $req = $db->prepare($sql);
+             $req->bindValue(1, $name, \PDO::PARAM_STR);
             $req->setFetchMode(\PDO::FETCH_ASSOC);
             $req->execute();
             while ($enr = $req->fetch()) {
-                $objet = new SearchType();
-                $objet->setSearchtype_id($enr['searchtype_id']);
-                $objet->setSearchtype_name($enr['searchtype_name']);
-                $objet->setSearchtype_description($enr['searchtype_description']);
-                $searchtypes[] = $objet;
+                $objet = new Customer();
+                $objet->setCustomer_id($enr['customer_id']);
+                $objet->setCustomer_lastname($enr['customer_lastname']);
+                $objet->setCustomer_firstname($enr['customer_firstname']);
+                $objet->setCustomer_civility($enr['customer_civility']);
+                $objet->setCustomer_address1($enr['customer_address1']);
+                $objet->setCustomer_address2($enr['customer_address2']);
+                $objet->setCustomer_address3($enr['customer_address3']);
+                $objet->setCustomer_zipcode($enr['customer_zipcode']);
+                $objet->setCustomer_city($enr['customer_city']);
+                $objet->setCustomer_country($enr['customer_country']);
+                $objet->setCustomer_size($enr['customer_size']);
+                $objet->setCustomer_email($enr['customer_email']);
+                $objet->setCustomer_sms($enr['customer_sms']);
+                $objet->setCustomer_lastupdate($enr['customer_lastupdate']);
+                $objet->setCustomer_creation($enr['customer_creation']);
+                $objet->setCustomer_validation($enr['customer_validation']);
+                $objet->setCustomer_validation_flag($enr['customer_validation_flag']);
+                $objet->setCustomer_suppression($enr['customer_suppression']);
+                $objet->setCustomer_suppression_flag($enr['customer_suppression_flag']);
+                $objets[] = $objet;
             }
         } catch (PDOException $e) {
             $objet = null;
-            $searchtypes[] = $objet;
+            $objets[] = $objet;
         }
         $req->closeCursor();
-        return $searchtypes;
+        return $objets;
     }
-
-    public function selectAllSigns() {
-        $signs = array();
+     /**
+     * 
+     * @param string $name
+     * @return Array Customer
+     */
+    public function selectByEmail($email) {
+        $objets = array();
         try {
-            //$db = $this->dbConnect();
             $db = $this::getDBInstance();
-            $req = $db->prepare('SELECT * FROM signs');
+            $sql = 'SELECT * FROM customers where customer_email = ? ORDER BY customer_lastname';
+            $req = $db->prepare($sql);
+             $req->bindValue(1, $name, \PDO::PARAM_STR);
             $req->setFetchMode(\PDO::FETCH_ASSOC);
             $req->execute();
             while ($enr = $req->fetch()) {
-                $objet = new Sign();
-                $objet->setSign_ESC($enr['sign_ESC']);
-                $searchtypes[] = $objet;
+                $objet = new Customer();
+                $objet->setCustomer_id($enr['customer_id']);
+                $objet->setCustomer_lastname($enr['customer_lastname']);
+                $objet->setCustomer_firstname($enr['customer_firstname']);
+                $objet->setCustomer_civility($enr['customer_civility']);
+                $objet->setCustomer_address1($enr['customer_address1']);
+                $objet->setCustomer_address2($enr['customer_address2']);
+                $objet->setCustomer_address3($enr['customer_address3']);
+                $objet->setCustomer_zipcode($enr['customer_zipcode']);
+                $objet->setCustomer_city($enr['customer_city']);
+                $objet->setCustomer_country($enr['customer_country']);
+                $objet->setCustomer_size($enr['customer_size']);
+                $objet->setCustomer_email($enr['customer_email']);
+                $objet->setCustomer_sms($enr['customer_sms']);
+                $objet->setCustomer_lastupdate($enr['customer_lastupdate']);
+                $objet->setCustomer_creation($enr['customer_creation']);
+                $objet->setCustomer_validation($enr['customer_validation']);
+                $objet->setCustomer_validation_flag($enr['customer_validation_flag']);
+                $objet->setCustomer_suppression($enr['customer_suppression']);
+                $objet->setCustomer_suppression_flag($enr['customer_suppression_flag']);
+                $objets[] = $objet;
             }
         } catch (PDOException $e) {
             $objet = null;
-            $signs[] = $objet;
+            $objets[] = $objet;
         }
         $req->closeCursor();
-        return $objet;
+        return $objets;
     }
 
-    public function selectAllTagsFromRequest($id) {
-        $db = $this::getDBInstance();
-        //$db = $this->dbConnect();
-        $req = $db->prepare('CALL SelectAllRequestTagFromRequest (?)');
-        $req->bindValue(1, $id, \PDO::PARAM_INT);
-        $req->execute();
-        //$tags = array();
-
-        $tags = $req->fetchAll();
-        $req->closeCursor();
-        return $tags;
-    }
+   
 
     public function insertTagFromRequest($objet) {
         try {
@@ -367,26 +386,7 @@ class CustomerDAO extends DBAccess {
         return $liAffectes;
     }
 
-    public function addResponse(Request $objet) {
-        $affectedRows = 0;
-        try {
-            //print_r($objet);
-            // $db = $this->dbConnect();
-            $db = $this::getDBInstance();
-            $req = $db->prepare('INSERT INTO request (request_header, request_name, request_libelle, request_order) VALUES(?,?,?,?)');
-            $req->bindValue(1, $objet->getRequest_header());
-            $req->bindValue(2, $objet->getRequest_name());
-            $req->bindValue(3, $objet->getRequest_libelle());
-            $req->bindValue(4, $objet->getRequest_order());
-            $req->execute();
-            $affectedRows = $req->rowcount();
-        } catch (PDOException $e) {
-            $affectedRows = -1;
-        }
-        $req->closeCursor();
-
-        return $affectedRows;
-    }
+   
 
     public function updateTagRequest(TagRequest $objet) {
         //  print_r($objet);
@@ -439,25 +439,6 @@ class CustomerDAO extends DBAccess {
         return $affectedRows;
     }
 
-    public function addQuestion(Header $objet) {
-        $affectedRows = 0;
-        try {
-            //$db = $this->dbConnect();
-            $db = $this::getDBInstance();
-            $req = $db->prepare('INSERT INTO headers (header_bu, header_form, header_position, header_designation,header_name) VALUES(?,?,?,?,?)');
-            $req->bindValue(1, $objet->getHeader_bu());
-            $req->bindValue(2, $objet->getHeader_form());
-            $req->bindValue(3, $objet->getHeader_position());
-            $req->bindValue(4, $objet->getHeader_designation());
-            $req->bindValue(5, $objet->getHeader_name());
-            $req->execute();
-            $affectedRows = $req->rowcount();
-        } catch (PDOException $e) {
-            $affectedRows = -1;
-        }
-        $req->closeCursor();
-
-        return $affectedRows;
-    }
+   
 
 }
