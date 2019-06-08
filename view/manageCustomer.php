@@ -259,27 +259,33 @@
 
 <div class="container-fluid">
     <div class="table-wrapper">
-        <div class="table-title">
-            <div class="row">
-                <div class="col-sm-2">
-                    <h5>Gestion client</h5>
+        <div class="table-title t">
+            <div class="row t">
+                <div class="col-sm-3 t">
+                    <h6>Gestion client</h6>
                 </div>
-                <div class="col-sm-2 input-group-sm">
-                    <input type="text" class="form-control" placeholder="Entrez un nom">
+                <div class="col-sm-3 input-group-sm t">
+                    <input type="text" class="form-control  rounded-0" placeholder="Entrez un nom">
                 </div>
-                 <div class="col-sm-2 input-group-sm">
+                 <div class="col-sm-3 input-group-sm t">
                     <input type="text" class="form-control" placeholder="Entrez un e-mail">
                 </div>
-                <div class="col-sm-4">		
+                <div class="col-sm-1 t">		
                     <button id="back" class="btn btn-default" data-toggle="modal"><i class="material-icons">&#xE314;</i> <span class="black-write">Retour</span></button>
-                    <button id="addButton" class="btn btn-info" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Ajouter un produit</span></button>
+                 </div>
+                <div class="col-sm-1 t">		
+                    <button id="back" class="btn btn-default" data-toggle="modal"><i class="material-icons">&#xE314;</i> <span class="black-write">Retour</span></button>
+                 </div>
+                
+                 <div class="col-sm-1 t">	
+                    <button id="addButton" class="btn btn-info" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Nouveau</span></button>
 
                 </div>
-                <div class="col-sm-2">
+             <!--   <div class="col-sm-2">
 
                     <input class=" pull-right" type="submit" value="Rechercher" onclick="searchString()" />
                     <input class="pull-right" id="search" name="search" type="text" value="" onfocus="clearSearch()" />
-                </div>
+                </div> -->
             </div>
         </div>
         <!-- RAFRAICHISSEMENT DU DETAIL VIA AJAX -->
