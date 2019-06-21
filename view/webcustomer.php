@@ -138,7 +138,7 @@
                                 <div class="form-group row">
 
                                     <label class="control-label col-sm-3" for="lastname">*Nom:</label>
-                                    <div class="input-group col-md-9">
+                                    <div class="input-group col-sm-9">
                                         <input type="text" 
                                                class="form-control form-control-sm  rounded-0" 
                                                name="lastname" id="lastname" >                             
