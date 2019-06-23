@@ -105,16 +105,21 @@ try {
                   throw new Exception('Erreur dans la requête');
                   } */
                 break;
+            case 'listLastCustomer': 
+                $num = filter_input(INPUT_POST, "num");
+                    $manageCustomer = controller\CustomerController::getInstance();
+                    $manageCustomer->listLastCustomer($num);
+                break;
             case 'listCustomer':
-                    $name = filter_input(INPUT_POST, "byName");
-                    $email = filter_input(INPUT_POST, "byMail");
-                    if (isset($name) && isset($mail) && filter_var($name, FILTER_SANITIZE_STRING) !== false && filter_var($mail, FILTER_SANITIZE_STRING) !== false) {
-                        $manageCustomer = controller\CustomerController::getInstance();
-                        $manageCustomer->listCustomerBy($name,$mail);
-                    } else {
-                        throw new Exception('Erreur dans la rêquete');
-                    }
-                    break;
+                $name = filter_input(INPUT_POST, "byName");
+                $email = filter_input(INPUT_POST, "byMail");
+                if (isset($name) && isset($mail) && filter_var($name, FILTER_SANITIZE_STRING) !== false && filter_var($mail, FILTER_SANITIZE_STRING) !== false) {
+                    $manageCustomer = controller\CustomerController::getInstance();
+                    $manageCustomer->listCustomerBy($name, $mail);
+                } else {
+                    throw new Exception('Erreur dans la rêquete');
+                }
+                break;
             /**
              *  Traitement des routes non reconnues
              */

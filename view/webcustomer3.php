@@ -101,7 +101,7 @@ if ((filter_input(INPUT_POST, 'flag') != null) and ( filter_input(INPUT_POST, 'f
                 </table>    
             </form>
             <br><br>
-            <div align="center" style="background-color:#800080; font-family: calibri, 'Arial Black',  Verdana, sans-serif; color:#C0C0C0; font-size=4><br>VENTESCLERY.FR - Batiment STOCKVET - Zone artisanale - Allée de la marchanderie<br>45370 Cléry saint-andré Tel:02.38.45.79.15</div>
+            <div align="center" style="background-color:#800080; font-family: calibri, 'Arial Black',  Verdana, sans-serif; color:#C0C0C0; font-size:4"><br>VENTESCLERY.FR - Batiment STOCKVET - Zone artisanale - Allée de la marchanderie<br>45370 Cléry saint-andré Tel:02.38.45.79.15</div>
         </div>
         <div><A HREF="/VC6/maj_membres.php" target=_blank>.</A></div> 
     </body>

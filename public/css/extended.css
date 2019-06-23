@@ -1,4 +1,81 @@
-.t {border: 2px solid black}
+footer{
+    background-color: white;
+}
+.mr-table > * {
+  border: 1px solid black;
+}
+.mr-title{
+    text-align: center;
+    color: white;
+}
+.mr-button{
+    width: 100%;
+    /*margin: 5px;*/
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    font-size: 1em;
+    margin: 2px 2px;
+}
+.mr-new{
+    background-color: blue;
+    color: red;
+}
+.mr-search{
+    background-color: dodgerblue;
+    color: darkblue;
+}
+.mr-input{
+    width: 100%;
+    margin: 2px 2px;
+    /*margin: 5px;*/
+
+    /*box-shadow: 0 1px 1px rgba(0,0,0,.05);*/
+}
+.wrapper {
+    display: flex;
+    flex-flow: row wrap;
+    padding-top: 25px;
+}
+
+/* We tell all items to be 100% width, via flex-basis */
+.wrapper > * {
+    flex: 1 100%;
+}
+
+/* We rely on source order for mobile-first approach
+ * in this case:
+ * 1. header
+ * 2. article
+ * 3. aside 1
+ * 4. aside 2
+ * 5. footer
+ */
+@media all and (min-width: 200px) {
+    /* We tell both sidebars to share a row */
+    .aside { flex: 1 auto; }
+    .wrapper {padding-top: 50px;}
+}
+/* Medium screens */
+@media all and (min-width: 284px) {
+    /* We tell both sidebars to share a row */
+    .wrapper {padding-top: 25px;}
+}
+
+/* Large screens */
+@media all and (min-width: 600px) {
+    /* We invert order of first sidebar and main
+     * And tell the main element to take twice as much width as the other two sidebars 
+     */
+    .main { flex: 8 0px;}
+    .main-1   { order: 1; }
+    .main-2   { order: 2; }
+    .aside-1 { order: 3; }
+    .aside-2 { order: 4; }
+    .aside-3 { order: 5; }
+    .footer  { order: 6; }
+}
+
+.t {border: 1px solid black}
 .container-flex{
     display: flex; /* or inline-flex */
     /*flex-direction: row | row-reverse | column | column-reverse;*/

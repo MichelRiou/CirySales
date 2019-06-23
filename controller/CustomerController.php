@@ -68,7 +68,7 @@ class CustomerController extends Controller {
     }
 
     public function manageCustomer() {
-        $this->getViewContent('manageCustomer', array(), 'template');
+        $this->getViewContent('manageCustomer1', array(), 'template');
     }
 
     public function listCustomerBy($name, $email) {
@@ -83,6 +83,12 @@ class CustomerController extends Controller {
             }
         }
         $this->getViewContent('listCustomer', array(
+            'customers' => $customers), null);
+    }
+        public function listLastCustomer($num) {
+        $CustomerDAO = new \model\CustomerDAO();
+        $customers = $CustomerDAO->listLastCustomer(3);
+        $this->getViewContent('listLastCustomer', array(
             'customers' => $customers), null);
     }
 

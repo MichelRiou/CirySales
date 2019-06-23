@@ -9,29 +9,36 @@ class CustomerDAO extends DBAccess {
      * @param int $id
      * @return object Form 
      */
-    public function selectOneForm($id) {
-
-        // $db = $this->dbConnect();
-        $db = $this::getDBInstance();
-        $req = $db->prepare('SELECT forms.* FROM forms  WHERE form_id= ? ');
-        $req->bindValue(1, $id);
-        $req->setFetchMode(\PDO::FETCH_ASSOC);
-        $req->execute();
-        if ($enr = $req->fetch()) {
-            $objet = new Form();
-            $objet->setForm_id($enr['form_id']);
-            $objet->setForm_bu($enr['form_bu']);
-            $objet->setForm_category($enr['form_category']);
-            $objet->setForm_name($enr['form_name']);
-            $objet->setForm_designation($enr['form_designation']);
-            $objet->setForm_searchtype($enr['form_searchtype']);
-            $objet->setForm_validated($enr['form_validated']);
-            $objet->setForm_user_create($enr['form_user_create']);
-        } else {
-            $objet = null;
+    public function listLastCustomer($num) {
+        $objets = array();
+        try {
+            $db = $this::getDBInstance();
+            $req = $db->prepare('SELECT customers.* FROM customers  ORDER BY customer_lastupdate DESC LIMIT ? ');
+            $req->bindValue(1, $num, \PDO::PARAM_INT);
+            $req->setFetchMode(\PDO::FETCH_ASSOC);
+            $req->execute();
+            
+            while ($enr = $req->fetch()) {
+                $objet = new Customer();
+                $objet->setCustomer_id($enr['customer_id']);
+                $objet->setCustomer_lastname($enr['customer_lastname']);
+                $objet->setCustomer_firstname($enr['customer_firstname']);
+                $objet->setCustomer_address1($enr['customer_address1']);
+                $objet->setCustomer_address2($enr['customer_address2']);
+                $objet->setCustomer_city($enr['customer_city']);
+                $objet->setCustomer_zipcode($enr['customer_zipcode']);
+                $objet->setCustomer_civility($enr['customer_civility']);
+                $objet->setCustomer_country($enr['customer_country']);
+                $objet->setCustomer_creation($enr['customer_creation']);
+                $objet->setCustomer_lastupdate($enr['customer_lastupdate']);
+                $objet->setCustomer_sms($enr['customer_sms']);
+                $objets[] = $objet;
+            }
+        } catch (PDOException $e) {
+            echo 'Échec lors de la connexion : ' . $e->getMessage();
         }
         $req->closeCursor();
-        return $objet;
+        return $objets;
     }
 
     /**
@@ -227,7 +234,6 @@ class CustomerDAO extends DBAccess {
         return $objet;
     }
 
-    
     /**
      * 
      * @param none
@@ -273,6 +279,7 @@ class CustomerDAO extends DBAccess {
         $req->closeCursor();
         return $objets;
     }
+
     /**
      * 
      * @param string $name
@@ -284,51 +291,7 @@ class CustomerDAO extends DBAccess {
             $db = $this::getDBInstance();
             $sql = 'SELECT * FROM customers where customer_lastname = ? ORDER BY customer_firstname';
             $req = $db->prepare($sql);
-             $req->bindValue(1, $name, \PDO::PARAM_STR);
-            $req->setFetchMode(\PDO::FETCH_ASSOC);
-            $req->execute();
-            while ($enr = $req->fetch()) {
-                $objet = new Customer();
-                $objet->setCustomer_id($enr['customer_id']);
-                $objet->setCustomer_lastname($enr['customer_lastname']);
-                $objet->setCustomer_firstname($enr['customer_firstname']);
-                $objet->setCustomer_civility($enr['customer_civility']);
-                $objet->setCustomer_address1($enr['customer_address1']);
-                $objet->setCustomer_address2($enr['customer_address2']);
-                $objet->setCustomer_address3($enr['customer_address3']);
-                $objet->setCustomer_zipcode($enr['customer_zipcode']);
-                $objet->setCustomer_city($enr['customer_city']);
-                $objet->setCustomer_country($enr['customer_country']);
-                $objet->setCustomer_size($enr['customer_size']);
-                $objet->setCustomer_email($enr['customer_email']);
-                $objet->setCustomer_sms($enr['customer_sms']);
-                $objet->setCustomer_lastupdate($enr['customer_lastupdate']);
-                $objet->setCustomer_creation($enr['customer_creation']);
-                $objet->setCustomer_validation($enr['customer_validation']);
-                $objet->setCustomer_validation_flag($enr['customer_validation_flag']);
-                $objet->setCustomer_suppression($enr['customer_suppression']);
-                $objet->setCustomer_suppression_flag($enr['customer_suppression_flag']);
-                $objets[] = $objet;
-            }
-        } catch (PDOException $e) {
-            $objet = null;
-            $objets[] = $objet;
-        }
-        $req->closeCursor();
-        return $objets;
-    }
-     /**
-     * 
-     * @param string $name
-     * @return Array Customer
-     */
-    public function selectByEmail($email) {
-        $objets = array();
-        try {
-            $db = $this::getDBInstance();
-            $sql = 'SELECT * FROM customers where customer_email = ? ORDER BY customer_lastname';
-            $req = $db->prepare($sql);
-             $req->bindValue(1, $name, \PDO::PARAM_STR);
+            $req->bindValue(1, $name, \PDO::PARAM_STR);
             $req->setFetchMode(\PDO::FETCH_ASSOC);
             $req->execute();
             while ($enr = $req->fetch()) {
@@ -362,7 +325,50 @@ class CustomerDAO extends DBAccess {
         return $objets;
     }
 
-   
+    /**
+     * 
+     * @param string $name
+     * @return Array Customer
+     */
+    public function selectByEmail($email) {
+        $objets = array();
+        try {
+            $db = $this::getDBInstance();
+            $sql = 'SELECT * FROM customers where customer_email = ? ORDER BY customer_lastname';
+            $req = $db->prepare($sql);
+            $req->bindValue(1, $name, \PDO::PARAM_STR);
+            $req->setFetchMode(\PDO::FETCH_ASSOC);
+            $req->execute();
+            while ($enr = $req->fetch()) {
+                $objet = new Customer();
+                $objet->setCustomer_id($enr['customer_id']);
+                $objet->setCustomer_lastname($enr['customer_lastname']);
+                $objet->setCustomer_firstname($enr['customer_firstname']);
+                $objet->setCustomer_civility($enr['customer_civility']);
+                $objet->setCustomer_address1($enr['customer_address1']);
+                $objet->setCustomer_address2($enr['customer_address2']);
+                $objet->setCustomer_address3($enr['customer_address3']);
+                $objet->setCustomer_zipcode($enr['customer_zipcode']);
+                $objet->setCustomer_city($enr['customer_city']);
+                $objet->setCustomer_country($enr['customer_country']);
+                $objet->setCustomer_size($enr['customer_size']);
+                $objet->setCustomer_email($enr['customer_email']);
+                $objet->setCustomer_sms($enr['customer_sms']);
+                $objet->setCustomer_lastupdate($enr['customer_lastupdate']);
+                $objet->setCustomer_creation($enr['customer_creation']);
+                $objet->setCustomer_validation($enr['customer_validation']);
+                $objet->setCustomer_validation_flag($enr['customer_validation_flag']);
+                $objet->setCustomer_suppression($enr['customer_suppression']);
+                $objet->setCustomer_suppression_flag($enr['customer_suppression_flag']);
+                $objets[] = $objet;
+            }
+        } catch (PDOException $e) {
+            $objet = null;
+            $objets[] = $objet;
+        }
+        $req->closeCursor();
+        return $objets;
+    }
 
     public function insertTagFromRequest($objet) {
         try {
@@ -385,8 +391,6 @@ class CustomerDAO extends DBAccess {
 
         return $liAffectes;
     }
-
-   
 
     public function updateTagRequest(TagRequest $objet) {
         //  print_r($objet);
@@ -438,7 +442,5 @@ class CustomerDAO extends DBAccess {
         }
         return $affectedRows;
     }
-
-   
 
 }
