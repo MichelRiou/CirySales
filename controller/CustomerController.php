@@ -68,7 +68,7 @@ class CustomerController extends Controller {
     }
 
     public function manageCustomer() {
-        $this->getViewContent('manageCustomer1', array(), 'template');
+        $this->getViewContent('manageCustomer', array(), 'template');
     }
 
     public function listCustomerBy($name, $email) {
@@ -77,17 +77,17 @@ class CustomerController extends Controller {
             $customers = $CustomerDAO->selectByName($name);
         } else {
             if ($email !== '') {
-                $customers = $CustomerDAO->selectByMail($email);
+                $customers = $CustomerDAO->selectByEmail($email);
             } else {
                 $customers = $CustomerDAO->selectAll();
             }
         }
-        $this->getViewContent('listCustomer', array(
+        $this->getViewContent('listFindCustomer', array(
             'customers' => $customers), null);
     }
         public function listLastCustomer($num) {
         $CustomerDAO = new \model\CustomerDAO();
-        $customers = $CustomerDAO->listLastCustomer(3);
+        $customers = $CustomerDAO->listLastCustomer($num);
         $this->getViewContent('listLastCustomer', array(
             'customers' => $customers), null);
     }

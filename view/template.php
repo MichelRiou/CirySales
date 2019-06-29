@@ -79,7 +79,7 @@ if (isset($_SESSION['user'])) {
                                    href="routes.php?action=manageUser">CREER UTILISATEUR</a>
                                  <?php } ?>
                                 <a class="dropdown-item" 
-                                   href="routes.php?action=manageMembers">GESTION DES INSCRITS</a>
+                                   href="routes.php?action=manageCustomer">GESTION DES INSCRITS</a>
                             </div>
                         </li>
                     <?php } ?>

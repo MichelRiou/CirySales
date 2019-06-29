@@ -336,7 +336,7 @@ class CustomerDAO extends DBAccess {
             $db = $this::getDBInstance();
             $sql = 'SELECT * FROM customers where customer_email = ? ORDER BY customer_lastname';
             $req = $db->prepare($sql);
-            $req->bindValue(1, $name, \PDO::PARAM_STR);
+            $req->bindValue(1, $email, \PDO::PARAM_STR);
             $req->setFetchMode(\PDO::FETCH_ASSOC);
             $req->execute();
             while ($enr = $req->fetch()) {
