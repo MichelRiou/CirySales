@@ -17,7 +17,7 @@ class CustomerDAO extends DBAccess {
             $req->bindValue(1, $num, \PDO::PARAM_INT);
             $req->setFetchMode(\PDO::FETCH_ASSOC);
             $req->execute();
-            
+
             while ($enr = $req->fetch()) {
                 $objet = new Customer();
                 $objet->setCustomer_id($enr['customer_id']);
@@ -212,22 +212,39 @@ class CustomerDAO extends DBAccess {
      * @param int $id
      * @return object Request
      */
-    public function selectOneRequest($id) {
+    public function selectOne($id) {
+        $objet = new Customer();
+        try {
+            $db = $this::getDBInstance();
+            $req = $db->prepare('SELECT * FROM customers WHERE customer_id = ? ');
+            $req->bindValue(1, $id, \PDO::PARAM_INT);
+            $req->setFetchMode(\PDO::FETCH_ASSOC);
+            $req->execute();
+            if ($enr = $req->fetch()) {
 
-        $db = $this::getDBInstance();
-        //$db = $this->dbConnect();
-        $req = $db->prepare('SELECT * FROM request WHERE request_id = ? ');
-        $req->bindValue(1, $id, \PDO::PARAM_INT);
-        $req->setFetchMode(\PDO::FETCH_ASSOC);
-        $req->execute();
-        if ($enr = $req->fetch()) {
-            $objet = new Request();
-            $objet->setRequest_id($enr['request_id']);
-            $objet->setRequest_header($enr['request_header']);
-            $objet->setRequest_order($enr['request_order']);
-            $objet->setRequest_name($enr['request_name']);
-            $objet->setRequest_libelle($enr['request_libelle']);
-        } else {
+                $objet->setCustomer_id($enr['customer_id']);
+                $objet->setCustomer_lastname($enr['customer_lastname']);
+                $objet->setCustomer_firstname($enr['customer_firstname']);
+                $objet->setCustomer_civility($enr['customer_civility']);
+                $objet->setCustomer_address1($enr['customer_address1']);
+                $objet->setCustomer_address2($enr['customer_address2']);
+                $objet->setCustomer_address3($enr['customer_address3']);
+                $objet->setCustomer_zipcode($enr['customer_zipcode']);
+                $objet->setCustomer_city($enr['customer_city']);
+                $objet->setCustomer_country($enr['customer_country']);
+                $objet->setCustomer_size($enr['customer_size']);
+                $objet->setCustomer_email($enr['customer_email']);
+                $objet->setCustomer_sms($enr['customer_sms']);
+                $objet->setCustomer_lastupdate($enr['customer_lastupdate']);
+                $objet->setCustomer_creation($enr['customer_creation']);
+                $objet->setCustomer_last_visit($enr['customer_last_visit']);
+                $objet->setCustomer_validation_flag($enr['customer_validation_flag']);
+                $objet->setCustomer_suppression($enr['customer_suppression']);
+                $objet->setCustomer_suppression_flag($enr['customer_suppression_flag']);
+            } else {
+                $objet = null;
+            }
+        } catch (PDOException $e) {
             $objet = null;
         }
         $req->closeCursor();
@@ -266,7 +283,7 @@ class CustomerDAO extends DBAccess {
                 $objet->setCustomer_sms($enr['customer_sms']);
                 $objet->setCustomer_lastupdate($enr['customer_lastupdate']);
                 $objet->setCustomer_creation($enr['customer_creation']);
-                $objet->setCustomer_validation($enr['customer_validation']);
+                $objet->setCustomer_last_visit($enr['customer_last_visit']);
                 $objet->setCustomer_validation_flag($enr['customer_validation_flag']);
                 $objet->setCustomer_suppression($enr['customer_suppression']);
                 $objet->setCustomer_suppression_flag($enr['customer_suppression_flag']);
@@ -285,13 +302,19 @@ class CustomerDAO extends DBAccess {
      * @param string $name
      * @return Array Customer
      */
-    public function selectByName($name) {
+    public function selectByName(string $name, string $extend) {
         $objets = array();
         try {
             $db = $this::getDBInstance();
-            $sql = 'SELECT * FROM customers where customer_lastname = ? ORDER BY customer_firstname';
-            $req = $db->prepare($sql);
-            $req->bindValue(1, $name, \PDO::PARAM_STR);
+            if ($extend == 'O') {
+                $sql = 'SELECT * FROM customers where customer_lastname LIKE ? ORDER BY customer_firstname';
+                $req = $db->prepare($sql);
+                $req->bindValue(1, $name . '%', \PDO::PARAM_STR);
+            } else {
+                $sql = 'SELECT * FROM customers where customer_lastname = ? ORDER BY customer_firstname';
+                $req = $db->prepare($sql);
+                $req->bindValue(1, $name, \PDO::PARAM_STR);
+            }
             $req->setFetchMode(\PDO::FETCH_ASSOC);
             $req->execute();
             while ($enr = $req->fetch()) {
@@ -311,7 +334,7 @@ class CustomerDAO extends DBAccess {
                 $objet->setCustomer_sms($enr['customer_sms']);
                 $objet->setCustomer_lastupdate($enr['customer_lastupdate']);
                 $objet->setCustomer_creation($enr['customer_creation']);
-                $objet->setCustomer_validation($enr['customer_validation']);
+                $objet->setCustomer_last_visit($enr['customer_last_visit']);
                 $objet->setCustomer_validation_flag($enr['customer_validation_flag']);
                 $objet->setCustomer_suppression($enr['customer_suppression']);
                 $objet->setCustomer_suppression_flag($enr['customer_suppression_flag']);
@@ -330,13 +353,20 @@ class CustomerDAO extends DBAccess {
      * @param string $name
      * @return Array Customer
      */
-    public function selectByEmail($email) {
+    public function selectByEmail(string $email, string $extend) {
         $objets = array();
         try {
             $db = $this::getDBInstance();
-            $sql = 'SELECT * FROM customers where customer_email = ? ORDER BY customer_lastname';
-            $req = $db->prepare($sql);
-            $req->bindValue(1, $email, \PDO::PARAM_STR);
+            if ($extend == 'O') {
+                $sql = 'SELECT * FROM customers where customer_email LIKE ? ORDER BY customer_lastname';
+                $req = $db->prepare($sql);
+                $req->bindValue(1, $email . '%', \PDO::PARAM_STR);
+            } else {
+                $sql = 'SELECT * FROM customers where customer_email = ? ORDER BY customer_lastname';
+                $req = $db->prepare($sql);
+                $req->bindValue(1, $email, \PDO::PARAM_STR);
+            }
+
             $req->setFetchMode(\PDO::FETCH_ASSOC);
             $req->execute();
             while ($enr = $req->fetch()) {
@@ -356,7 +386,7 @@ class CustomerDAO extends DBAccess {
                 $objet->setCustomer_sms($enr['customer_sms']);
                 $objet->setCustomer_lastupdate($enr['customer_lastupdate']);
                 $objet->setCustomer_creation($enr['customer_creation']);
-                $objet->setCustomer_validation($enr['customer_validation']);
+                $objet->setCustomer_last_visit($enr['customer_last_visit']);
                 $objet->setCustomer_validation_flag($enr['customer_validation_flag']);
                 $objet->setCustomer_suppression($enr['customer_suppression']);
                 $objet->setCustomer_suppression_flag($enr['customer_suppression_flag']);
@@ -370,71 +400,13 @@ class CustomerDAO extends DBAccess {
         return $objets;
     }
 
-    public function insertTagFromRequest($objet) {
-        try {
-            //print_r($objet);
-            //  $db = $this->dbConnect();
-            $db = $this::getDBInstance();
-            $req = $db->prepare('INSERT INTO request_tags (request_id, tag_id, request_tag_sign, request_tag_value, request_tag_numeric) VALUES(?,?,?,?,?)');
-            $req->bindValue(1, $objet->getRequest_id());
-            $req->bindValue(2, $objet->getTag_id());
-            $req->bindValue(3, $objet->getRequest_tag_sign());
-            $req->bindValue(4, $objet->getRequest_tag_value());
-            $req->bindValue(5, $objet->getRequest_tag_numeric());
-            $req->execute();
-            $liAffectes = $req->rowcount();
-        } catch (PDOException $e) {
-            $liAffectes = -1;
-//echo $e->getMessage();
-        }
-        $req->closeCursor();
 
-        return $liAffectes;
-    }
-
-    public function updateTagRequest(TagRequest $objet) {
-        //  print_r($objet);
-        $liAffectes = 1;
-        try {
-            //$db = $this->dbConnect();
-            $db = $this::getDBInstance();
-            $req = $db->prepare('UPDATE request_tags SET request_tag_sign=?, request_tag_value=?,request_tag_numeric=? WHERE request_tag_id=?');
-            $req->bindValue(1, $objet->getRequest_tag_sign(), \PDO::PARAM_STR);
-            $req->bindValue(2, $objet->getRequest_tag_value(), \PDO::PARAM_STR);
-            $req->bindValue(3, $objet->getRequest_tag_numeric(), \PDO::PARAM_INT);
-            $req->bindValue(4, $objet->getRequest_tag_id(), \PDO::PARAM_INT);
-            $req->execute();
-            //$liAffectes = $req->rowcount();
-        } catch (PDOException $e) {
-            $liAffectes = 0;
-        }
-        return $liAffectes;
-    }
-
-    public function deleteTagRequest($objet) {
-        //  print_r($objet);
-        $liAffectes = 0;
-        try {
-            //$db = $this->dbConnect();
-            $db = $this::getDBInstance();
-            $req = $db->prepare('DELETE FROM request_tags WHERE request_tag_id=?');
-            $req->bindValue(1, $objet->getRequest_tag_id(), \PDO::PARAM_INT);
-            $req->execute();
-            $liAffectes = $req->rowcount();
-        } catch (PDOException $e) {
-            $liAffectes = 0;
-        }
-        return $liAffectes;
-    }
-
-    public function deleteQuestion(Header $objet) {
+    public function updateVisit(Customer $objet) {
         $affectedRows = 0;
         try {
-            //  $db = $this->dbConnect();
             $db = $this::getDBInstance();
-            $req = $db->prepare('DELETE FROM headers WHERE header_id = ?');
-            $req->bindValue(1, $objet->getHeader_id(), \PDO::PARAM_INT);
-            $req->setFetchMode(\PDO::FETCH_ASSOC);
+            $req = $db->prepare('UPDATE customers SET customer_last_visit = NOW() WHERE customer_id=?');
+            $req->bindValue(1, $objet->getCustomer_id(), \PDO::PARAM_INT);
             $req->execute();
             $affectedRows = $req->rowcount();
         } catch (PDOException $e) {

@@ -105,10 +105,10 @@ try {
                   throw new Exception('Erreur dans la requête');
                   } */
                 break;
-            case 'listLastCustomer': 
+            case 'listLastCustomer':
                 $num = filter_input(INPUT_POST, "num");
-                    $manageCustomer = controller\CustomerController::getInstance();
-                    $manageCustomer->listLastCustomer($num);
+                $manageCustomer = controller\CustomerController::getInstance();
+                $manageCustomer->listLastCustomer($num);
                 break;
             case 'listCustomer':
                 $name = filter_input(INPUT_POST, "byName");
@@ -118,6 +118,15 @@ try {
                     $manageCustomer->listCustomerBy($name, $email);
                 } else {
                     throw new Exception('Erreur dans la rêquete listCustomer');
+                }
+                break;
+            case 'updateVisit':
+                $id = filter_input(INPUT_GET, "id");
+                if (filter_var($id, FILTER_VALIDATE_INT) !== false) {
+                    $manageCustomer = controller\CustomerController::getInstance();
+                    $manageCustomer->updateVisit($id);
+                } else {
+                    throw new Exception('Erreur dans la rêquete updatVisit');
                 }
                 break;
             /**

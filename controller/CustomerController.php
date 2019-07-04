@@ -71,25 +71,43 @@ class CustomerController extends Controller {
         $this->getViewContent('manageCustomer', array(), 'template');
     }
 
-    public function listCustomerBy($name, $email) {
+    public function listCustomerBy(string $name, string $email) {
         $CustomerDAO = new \model\CustomerDAO();
         if ($name !== '') {
-            $customers = $CustomerDAO->selectByName($name);
+            $customers = $CustomerDAO->selectByName($name, 'N');
+            $customersExtend = $CustomerDAO->selectByName($name, 'O');
         } else {
             if ($email !== '') {
-                $customers = $CustomerDAO->selectByEmail($email);
+                $customers = $CustomerDAO->selectByEmail($email, 'N');
+                $customersExtend = $CustomerDAO->selectByEmail($email, 'O');
             } else {
                 $customers = $CustomerDAO->selectAll();
             }
         }
         $this->getViewContent('listFindCustomer', array(
-            'customers' => $customers), null);
+            'customers' => $customers,
+            'customersExtend' => $customersExtend), null);
     }
-        public function listLastCustomer($num) {
+
+    public function listLastCustomer($num) {
         $CustomerDAO = new \model\CustomerDAO();
         $customers = $CustomerDAO->listLastCustomer($num);
         $this->getViewContent('listLastCustomer', array(
             'customers' => $customers), null);
+    }
+
+    public function updateVisit($id) {
+        $objet = new \model\Customer();
+        $CustomerDAO = new \model\CustomerDAO();
+        $objet = $CustomerDAO->selectOne($id);
+        if ($objet != null) {
+            $result = $CustomerDAO->updateVisit($objet);
+        } else {
+            $result = 0;
+        }
+        // Pour requête AJAX
+        echo $result;
+        //return $result;
     }
 
 }

@@ -6,7 +6,8 @@ footer{
 }
 .mr-title{
     text-align: center;
-    color: white;
+    color: #566787;
+    font-size : 24px;
 }
 .mr-button{
     width: 100%;
@@ -21,7 +22,7 @@ footer{
     color: red;
 }
 .mr-search{
-    background-color: dodgerblue;
+    background-color: #669999;
     color: darkblue;
 }
 .mr-input{

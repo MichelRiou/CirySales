@@ -1,7 +1,7 @@
 <body style="background-image: none;background-color: gainsboro;">
     <div  class="container-fluid">
         <div class="wrapper">
-            <header class="header mr-title" >GESTION DES CLIENTS</header>
+            <header class="header mr-title" >GESTION DES INSCRITS</header>
             <div class="main main-1">
                 <input class="mr-input" type ="text" id="byname" placeholder="Recherche par nom">  
             </div>
@@ -10,15 +10,14 @@
             </div>
             <aside class="aside aside-1"><button id="searchCustomer" class="mr-button mr-search">Chercher</button></aside>
             <aside class="aside aside-2"><button class="mr-button mr-search">Nouveau</button></aside>
-            <aside class="aside aside-3"><button class="mr-button mr-search">Retour</button></aside>
+            <aside class="aside aside-3"><button id="back"class="mr-button mr-search">Retour</button></aside>
 
             <footer class="footer">
             </footer> 
         </div>
         <div id="addMessage"></div>
-        <div id="requeteFind"></div>    
         <div id="requeteLast"></div>
-        <div id="requeteExtend"></div>
+        <div id="requeteFind"></div>    
     </div>
     <!-- MODAL ADD RESPONSE -->
     <div id="editCustomerModal" class="modal fade">
@@ -33,37 +32,37 @@
                         <div class="form-group row">
                             <label for="editLastName" class="col-sm-3 col-form-label col-form-label-sm">Nom</label>
                             <div class="col-sm-9">
-                            <input type="text" class="form-control"  id ="editLastName" >
+                                <input type="text" class="form-control"  id ="editLastName" >
                             </div>
                         </div>    
                         <div class="form-group row">
                             <label for="editFirstName" class="col-sm-3 col-form-label col-form-label-sm">Prénom</label>
                             <div class="col-sm-9">
-                            <input type="text" class="form-control"  id ="editFirstName" >
+                                <input type="text" class="form-control"  id ="editFirstName" >
                             </div>
                         </div>    
                         <div class="form-group row">
                             <label for="editFirstName" class="col-sm-3 col-form-label col-form-label-sm">Prénom</label>
                             <div class="col-sm-9">
-                            <input type="text" class="form-control"  id ="editFirstName" >
+                                <input type="text" class="form-control"  id ="editFirstName" >
                             </div>
                         </div> 
                         <div class="form-group row">
                             <label for="editFirstName" class="col-sm-3 col-form-label col-form-label-sm">Prénom</label>
                             <div class="col-sm-9">
-                            <input type="text" class="form-control"  id ="editFirstName" >
+                                <input type="text" class="form-control"  id ="editFirstName" >
                             </div>
                         </div> 
                         <div class="form-group row">
                             <label for="editFirstName" class="col-sm-3 col-form-label col-form-label-sm">Prénom</label>
                             <div class="col-sm-9">
-                            <input type="text" class="form-control"  id ="editFirstName" >
+                                <input type="text" class="form-control"  id ="editFirstName" >
                             </div>
                         </div> 
                         <div class="form-group row">
                             <label for="editFirstName" class="col-sm-3 col-form-label col-form-label-sm">Prénom</label>
                             <div class="col-sm-9">
-                            <input type="text" class="form-control"  id ="editFirstName" >
+                                <input type="text" class="form-control"  id ="editFirstName" >
                             </div>
                         </div> 
                     </div>
@@ -78,8 +77,16 @@
     </div>
 </body>
 <script type="text/javascript">
-    var idDelete;
+    var idVisit;
     var idEdit;
+    function updateVisit(idVisit) {
+        //idVisit = this.getAttribute('value');
+        console.log("text" + idVisit);
+        $('#v' + idVisit).html("&#xe876;");
+        // $('#v'+idVisit).style.color("orange");
+       document.getElementById("v"+idVisit).className=("material-icons delete");
+
+    }
     function ctrlEditProduct() {
         var msg = "";
         if ($("#editCategory").val() == '0')
@@ -118,8 +125,12 @@
                     },
             success: function (data) {
                 $("#requeteLast").html(data);
-                /*  $('[data-toggle="tooltip"]').tooltip();
-                 $("#addButton").click(function () {
+                /*  $('[data-toggle="tooltip"]').tooltip();*/
+                $('a[class="visit"]').click(function () {
+                    idVisit = this.getAttribute('value');
+                    console.log(idVisit);
+                });
+                /*  $("#addButton").click(function () {
                  $("#message").html('');
                  $("#addProductModal").modal('show');
                  //   } else {
