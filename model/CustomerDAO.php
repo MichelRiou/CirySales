@@ -23,15 +23,22 @@ class CustomerDAO extends DBAccess {
                 $objet->setCustomer_id($enr['customer_id']);
                 $objet->setCustomer_lastname($enr['customer_lastname']);
                 $objet->setCustomer_firstname($enr['customer_firstname']);
+                $objet->setCustomer_civility($enr['customer_civility']);
                 $objet->setCustomer_address1($enr['customer_address1']);
                 $objet->setCustomer_address2($enr['customer_address2']);
-                $objet->setCustomer_city($enr['customer_city']);
+                $objet->setCustomer_address3($enr['customer_address3']);
                 $objet->setCustomer_zipcode($enr['customer_zipcode']);
-                $objet->setCustomer_civility($enr['customer_civility']);
+                $objet->setCustomer_city($enr['customer_city']);
                 $objet->setCustomer_country($enr['customer_country']);
-                $objet->setCustomer_creation($enr['customer_creation']);
-                $objet->setCustomer_lastupdate($enr['customer_lastupdate']);
+                $objet->setCustomer_size($enr['customer_size']);
+                $objet->setCustomer_email($enr['customer_email']);
                 $objet->setCustomer_sms($enr['customer_sms']);
+                $objet->setCustomer_lastupdate($enr['customer_lastupdate']);
+                $objet->setCustomer_creation($enr['customer_creation']);
+                $objet->setCustomer_last_visit($enr['customer_last_visit']);
+                $objet->setCustomer_validation_flag($enr['customer_validation_flag']);
+                $objet->setCustomer_suppression($enr['customer_suppression']);
+                $objet->setCustomer_suppression_flag($enr['customer_suppression_flag']);
                 $objets[] = $objet;
             }
         } catch (PDOException $e) {
@@ -399,7 +406,6 @@ class CustomerDAO extends DBAccess {
         $req->closeCursor();
         return $objets;
     }
-
 
     public function updateVisit(Customer $objet) {
         $affectedRows = 0;

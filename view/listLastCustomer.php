@@ -11,11 +11,16 @@
 </thead>
 <tbody>   
     <?php foreach ($customers as $customer) { ?>                      
-        <tr><td><?= $customer->getCustomer_lastname() ?></td><td><?= $customer->getCustomer_firstname() ?></td><td><?= $customer->getCustomer_email() ?></td><td><?= $customer->getCustomer_sms() ?></td><td><?= substr($customer->getCustomer_lastupdate(),0,10 ) ?></td>
-            <td class = "row float-sm-right">
+    <tr><td class="bulle" <?php if($customer->getCustomer_suppression_flag()!= 0) echo "style=color:red";?>><?= $customer->getCustomer_lastname()?><div><?= $customer->getCustomer_address1()?>&nbsp;<?= $customer->getCustomer_zipcode()?>&nbsp;<?= $customer->getCustomer_city()?></div></td>
+            <td><?= $customer->getCustomer_firstname() ?></td>
+            <td><?= $customer->getCustomer_email() ?></td>
+            <td><?= $customer->getCustomer_sms() ?></td>
+            <td><?= substr($customer->getCustomer_lastupdate(),0,10 ) ?></td>
+            <td class = "row float-sm-right"> 
+                <a href="#editCustomerModal" class="edit" data-toggle="modal" editId="<?= $customer->getCustomer_id() ?>" editCivility="<?= $customer->getCustomer_civility() ?>" editLastname="<?= $customer->getCustomer_lastname() ?>" editFirstName="<?= $customer->getCustomer_firstname() ?>" editAddress1="<?= $customer->getCustomer_address1() ?>" editAddress2="<?= $customer->getCustomer_address2() ?>" editZipCode="<?= $customer->getCustomer_zipcode() ?>" editCity="<?= $customer->getCustomer_city() ?> " editEmail="<?= $customer->getCustomer_email() ?> " editSMS="<?= $customer->getCustomer_sms() ?> " editSuppression="<?= $customer->getCustomer_suppression_flag() ?>"><i class="material-icons" data-toggle="tooltip" title="Editer la fiche">&#xE254;</i></a>
+                <a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
                 <a href="javascript:updateVisit(<?= $customer->getCustomer_id() ?>)" class="visit" value="<?= $customer->getCustomer_id() ?>" ><i class="material-icons" data-toggle="tooltip" title="Enregistrer le passage" id="v<?= $customer->getCustomer_id() ?>">&#xe3c8;</i></a>
-                <a href="#editCustomerModal" value="<?= $customer->getCustomer_id() ?>" builder_ref="<?= $customer->getCustomer_id() ?>" ref="<?= $customer->getCustomer_id() ?>" model="<?= $customer->getCustomer_id() ?>" builder="<?= $customer->getCustomer_id() ?>" ean="<?= $customer->getCustomer_id() ?>" designation="<?= $customer->getCustomer_id() ?> " cat="<?= $customer->getCustomer_id() ?> " class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Editer la fiche">&#xE254;</i></a>
-               <a href="routes.php?action=manageProductTag&id=<?= $customer->getCustomer_id() ?>" class="delete"><i class="material-icons" data-toggle="tooltip" title="Liste des passages">&#xE242;</i></a>
+                <a href="routes.php?action=manageProductTag&id=<?= $customer->getCustomer_id() ?>" class="delete"><i class="material-icons" data-toggle="tooltip" title="Liste des passages">&#xE242;</i></a>
             </td>
         </tr>
     <?php } ?> 

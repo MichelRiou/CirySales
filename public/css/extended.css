@@ -1,8 +1,44 @@
+td.bulle div
+{
+    display: none; /* On masque l'infobulle. */
+    color: red;
+    background-color: yellow;
+}
+td.bulle:hover div
+{
+
+    display: block;  /* On affiche l'infobulle. */
+    color: red;
+    background-color: yellow;
+    font-family: 'Varela Round', sans-serif;
+    font-size: 13px;
+    /*font-size: 0.8em;
+ font-family: calibri, "Arial Black",  Verdana, sans-serif; */
+
+    /*white-space: wrap;*/
+
+    /*top: 20px;         */  /* On positionne notre infobulle. */
+    /* left: 10px;*/
+
+    background: white;
+    /*background: yellow;*/
+
+    color: black;
+    padding: 0px;
+
+    border: 1px solid black;
+    /* border-left: 4px solid green;*/
+    /*border-radius:10px 0;
+  -moz-border-radius:10px 0;  
+  -webkit-border-radius:10px 0; */
+
+    /* cursor: help; /* On change le curseur par d�faut par un curseur d'aide. */
+}
 footer{
     background-color: white;
 }
 .mr-table > * {
-  border: 1px solid black;
+    border: 1px solid black;
 }
 .mr-title{
     text-align: center;
@@ -208,7 +244,7 @@ table.table tr th, table.table tr td {
     border-color: #e9e9e9;
     padding: 0.5px 10px;
     vertical-align: middle;
-    
+
 }
 table.table tr th:first-child {
     width: 60px;

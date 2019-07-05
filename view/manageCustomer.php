@@ -25,10 +25,18 @@
             <div class="modal-content">
                 <form>
                     <div class="modal-header">						
-                        <h5 class="modal-title">Modification Produit</h5>
+                        <h5 class="modal-title">Mise à jour</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
-                    <div class="modal-body">					
+                    <div class="modal-body">	
+                        <div class="form-group row">
+                            <label for="editCivility" class="col-sm-3 col-form-label col-form-label-sm">Politesse</label>
+                            <div class="col-sm-9">
+                                <span class="col-sm-4"><input type="radio" name="editCivility" id="MME" value="MME">&nbsp;&nbsp;&nbsp;Mme</span>
+                                <span class="col-sm-4"><input type="radio" name="editCivility" id="MLLE" value="MLLE">&nbsp;&nbsp;&nbsp;Mlle</span>
+                                <span class="col-sm-4"><input type="radio" name="editCivility" id="MR" value="MR">&nbsp;&nbsp;&nbsp;Mr</span>    
+                            </div>
+                        </div>    
                         <div class="form-group row">
                             <label for="editLastName" class="col-sm-3 col-form-label col-form-label-sm">Nom</label>
                             <div class="col-sm-9">
@@ -42,29 +50,48 @@
                             </div>
                         </div>    
                         <div class="form-group row">
-                            <label for="editFirstName" class="col-sm-3 col-form-label col-form-label-sm">Prénom</label>
+                            <label for="editAddress1" class="col-sm-3 col-form-label col-form-label-sm">Adresse</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control"  id ="editFirstName" >
+                                <input type="text" class="form-control"  id ="editAddress1" >
                             </div>
                         </div> 
                         <div class="form-group row">
-                            <label for="editFirstName" class="col-sm-3 col-form-label col-form-label-sm">Prénom</label>
+                            <label for="editAddress2" class="col-sm-3 col-form-label col-form-label-sm">-Suite-</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control"  id ="editFirstName" >
+                                <input type="text" class="form-control"  id ="editAddress2" >
                             </div>
                         </div> 
                         <div class="form-group row">
-                            <label for="editFirstName" class="col-sm-3 col-form-label col-form-label-sm">Prénom</label>
+                            <label for="editZipCode" class="col-sm-3 col-form-label col-form-label-sm">Code Postal</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control"  id ="editFirstName" >
+                                <input type="text" class="form-control"  id ="editZipCode" >
                             </div>
                         </div> 
                         <div class="form-group row">
-                            <label for="editFirstName" class="col-sm-3 col-form-label col-form-label-sm">Prénom</label>
+                            <label for="editCity" class="col-sm-3 col-form-label col-form-label-sm">Ville</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control"  id ="editFirstName" >
+                                <input type="text" class="form-control"  id ="editCity" >
                             </div>
                         </div> 
+                        <div class="form-group row">
+                            <label for="editEmail" class="col-sm-3 col-form-label col-form-label-sm">Email</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control"  id ="editEmail" >
+                            </div>
+                        </div> 
+                        <div class="form-group row">
+                            <label for="editSMS" class="col-sm-3 col-form-label col-form-label-sm">Téléphone</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control"  id ="editSMS" >
+                            </div>
+                        </div> 
+                        <div class="form-group row">
+                            <label for="editSuppression" class="col-sm-3 col-form-label col-form-label-sm">Suspension</label>
+                            <div class="col-sm-9">
+                                <span class="col-sm-6"><input type="radio" name="editSuppression" id="OUI" value="OUI">&nbsp;&nbsp;&nbsp;OUI</span>
+                                <span class="col-sm-6"><input type="radio" name="editSuppression" id="NON" value="NON">&nbsp;&nbsp;&nbsp;NON</span> 
+                            </div>
+                        </div>    
                     </div>
                     <div id="editMessage" class="text-warning align-items-center"></div>
                     <div class="modal-footer">
@@ -84,7 +111,7 @@
         console.log("text" + idVisit);
         $('#v' + idVisit).html("&#xe876;");
         // $('#v'+idVisit).style.color("orange");
-       document.getElementById("v"+idVisit).className=("material-icons delete");
+        document.getElementById("v" + idVisit).className = ("material-icons delete");
 
     }
     function ctrlEditProduct() {
@@ -154,17 +181,29 @@
                     console.log(idDelete);
                 });
                 $('a[class="edit"]').click(function () {
-                    idEdit = this.getAttribute('value');
-                    console.log(idEdit);
-                    $('#editBuilderRef').val(this.getAttribute('builder_ref'));
+                    idEdit = this.getAttribute('editId');
+                    if (this.getAttribute('editCivility') == 'MLLE')
+                        document.getElementById("MLLE").checked = "checked";
+                    if (this.getAttribute('editCivility') == 'MR')
+                        document.getElementById("MR").checked = "checked";
+                    if (this.getAttribute('editCivility') == 'MME')
+                        document.getElementById("MME").checked = "checked";
+                    $('#editLastName').val(this.getAttribute('editLastName'));
+                    $('#editFirstName').val(this.getAttribute('editFirstName'));
+                    $('#editAddress1').val(this.getAttribute('editAddress1'));
+                    $('#editAddress2').val(this.getAttribute('editAddress2'));
+                    $('#editZipCode').val(this.getAttribute('editZipCode'));
+                    $('#editCity').val(this.getAttribute('editCity'));
+                    $('#editEmail').val(this.getAttribute('editEmail'));
+                    $('#editSMS').val(this.getAttribute('editSMS'));
+                    if (this.getAttribute('editSuppression') == 1) {
+                        document.getElementById("OUI").checked = "checked"
+                    } else {
+                        document.getElementById("NON").checked = "checked"
+                    }
+                    ;
 
-                    //$('#editRef').val(this.getAttribute('ref'));
-                    $('#editModel').val(this.getAttribute('model'));
-                    $('#editRef').val(this.getAttribute('ref'));
-                    $('#editBuilder').val(this.getAttribute('builder'));
-                    $('#editEan').val(this.getAttribute('ean'));
-                    $('#editCategory').val(this.getAttribute('cat'));
-                    $('#editDesignation').val(this.getAttribute('designation'));
+
                     /* console.log('cat' + this.getAttribute('category'));
                      var cat =this.getAttribute('category');
                      console.log('cat' + cat);
