@@ -406,7 +406,11 @@ class CustomerDAO extends DBAccess {
         $req->closeCursor();
         return $objets;
     }
-
+/**
+ * 
+ * @param \model\Customer $objet
+ * @return type int
+ */
     public function updateVisit(Customer $objet) {
         $affectedRows = 0;
         try {
@@ -420,5 +424,28 @@ class CustomerDAO extends DBAccess {
         }
         return $affectedRows;
     }
-
+public function updateCustomer(Customer $objet) {
+        $affectedRows = 0;
+        try {
+            $db = $this::getDBInstance();
+            print_r($objet);
+            $req = $db->prepare('UPDATE customers SET customer_civility = ?, customer_lastname = ?, customer_firstname = ?, customer_address1 = ?, customer_address2 = ?,customer_zipcode = ?, customer_city = ?,customer_email = ?, customer_sms = ?,customer_suppression_flag = ?, customer_suppression = NOW() WHERE customer_id = ?');
+            $req->bindValue(1, $objet->getCustomer_civility(), \PDO::PARAM_STR);
+            $req->bindValue(2, $objet->getCustomer_lastname(), \PDO::PARAM_STR);
+            $req->bindValue(3, $objet->getCustomer_firstname(), \PDO::PARAM_STR);
+            $req->bindValue(4, $objet->getCustomer_address1(), \PDO::PARAM_STR);
+            $req->bindValue(5, $objet->getCustomer_address2(), \PDO::PARAM_STR);
+            $req->bindValue(6, $objet->getCustomer_zipcode(), \PDO::PARAM_STR);
+            $req->bindValue(7, $objet->getCustomer_city(), \PDO::PARAM_STR);
+            $req->bindValue(8, $objet->getCustomer_email(), \PDO::PARAM_STR);
+            $req->bindValue(9, $objet->getCustomer_sms(), \PDO::PARAM_STR);
+            $req->bindValue(10, $objet->getCustomer_suppression_flag(), \PDO::PARAM_INT);
+            $req->bindValue(11, $objet->getCustomer_id(), \PDO::PARAM_INT);
+            $req->execute();
+            $affectedRows = $req->rowcount();
+        } catch (PDOException $e) {
+            $affectedRows = -1;
+        }
+        return $affectedRows;
+    }
 }

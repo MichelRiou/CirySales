@@ -129,6 +129,37 @@ try {
                     throw new Exception('Erreur dans la rêquete updatVisit');
                 }
                 break;
+            case 'updateCustomer':
+                $id = filter_input(INPUT_POST, "id");
+                $civility = filter_input(INPUT_POST, "civility");
+                $lastname = filter_input(INPUT_POST, "lastName");
+                $firstname = filter_input(INPUT_POST, "firstName");
+                $address1 = filter_input(INPUT_POST, "address1");
+                $address2 = filter_input(INPUT_POST, "address2");
+                $zipcode = filter_input(INPUT_POST, "zipCode");
+                $city = filter_input(INPUT_POST, "city");
+                $email = filter_input(INPUT_POST, "email");
+                $sms = filter_input(INPUT_POST, "sms");
+                $suppression = filter_input(INPUT_POST, "suppression");
+                if ((filter_var($id, FILTER_VALIDATE_INT) !== false) 
+                        && (filter_var($civility, FILTER_SANITIZE_STRING) !== false)
+                        && (filter_var($lastname, FILTER_SANITIZE_STRING) !== false) 
+                        && (filter_var($firstname, FILTER_SANITIZE_STRING) !== false) 
+                        && (filter_var($address1, FILTER_SANITIZE_STRING) !== false) 
+                        && (filter_var($address2, FILTER_SANITIZE_STRING) !== false) 
+                        && (filter_var($zipcode, FILTER_SANITIZE_STRING) !== false) 
+                        && (filter_var($city, FILTER_SANITIZE_STRING) !== false) 
+                        && (filter_var($email, FILTER_SANITIZE_STRING) !== false) 
+                        && (filter_var($sms, FILTER_SANITIZE_STRING) !== false)
+                        && (filter_var($suppression, FILTER_VALIDATE_INT) !== false)
+                ) {
+                    echo ('route' . $lastname);
+                    $manageCustomer = controller\CustomerController::getInstance();
+                    $manageCustomer->updateCustomer($id,$civility,$lastname,$firstname,$address1,$address2,$zipcode,$city,$email,$sms,$suppression);
+                } else {
+                    throw new Exception('Erreur dans la rêquete updatCustomer');
+                }
+                break;
             /**
              *  Traitement des routes non reconnues
              */

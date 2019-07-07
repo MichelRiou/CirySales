@@ -1,7 +1,9 @@
 <?php
 
 namespace controller;
-
+/**
+ * 
+ */
 class CustomerController extends Controller {
 
     private static $_instance = null;
@@ -9,7 +11,10 @@ class CustomerController extends Controller {
     private function __construct() {
         
     }
-
+/**
+ * 
+ * @return type CustomerController
+ */
     public static function getInstance() {
         if (is_null(self::$_instance)) {
             self::$_instance = new CustomerController();
@@ -18,15 +23,26 @@ class CustomerController extends Controller {
     }
 
     /**
-     * AFFICHAGE DES FORMULAIRES - MAIN
-     * @param int $bu
+     * 
+     * @param none
      */
     public function manageWebCustomer() {
         $this->getViewContent('webcustomer', array(), 'template');
     }
 
-    public function addWebCustomer($lastname, $firstname, $civility, $address1, $address2, $zipcode, $city, $email, $sms) {
-
+    /**
+     * 
+     * @param string $lastname
+     * @param string $firstname
+     * @param string $civility
+     * @param string $address1
+     * @param string $address2
+     * @param string $zipcode
+     * @param string $city
+     * @param string $email
+     * @param string $sms
+     */
+    public function addWebCustomer(string $lastname, string $firstname, string $civility, string $address1, string $address2, string $zipcode, string $city, string $email, string $sms) {
         $customerDAO = new \model\CustomerDAO();
         $objet = new \model\Customer();
         $objet->setCustomer_lastname($lastname);
@@ -41,10 +57,13 @@ class CustomerController extends Controller {
         $result = $customerDAO->addWebCustomer($objet);
         // Pour requête AJAX
         echo $result;
-        //return $result;
     }
 
-    public function sendMailCustomer($email) {
+    /**
+     * 
+     * @param string $email
+     */
+    public function sendMailCustomer(string $email) {
         $contenu = "Votre inscription à été validée. Nous espérons vous voir lors de notre prochaine vente à Ciry Le Noble.\n\nCordialement.";
         $contenu = nl2br($contenu);
         $message = "<HTML>\n";
@@ -67,10 +86,18 @@ class CustomerController extends Controller {
         mail($email, "INSCRIPTION A VENTESCIRYLENOBLE.FR", $message, $entetes);
     }
 
+    /**
+     * @param none
+     */
     public function manageCustomer() {
         $this->getViewContent('manageCustomer', array(), 'template');
     }
 
+    /**
+     * 
+     * @param string $name
+     * @param string $email
+     */
     public function listCustomerBy(string $name, string $email) {
         $CustomerDAO = new \model\CustomerDAO();
         if ($name !== '') {
@@ -89,14 +116,22 @@ class CustomerController extends Controller {
             'customersExtend' => $customersExtend), null);
     }
 
-    public function listLastCustomer($num) {
+    /**
+     * 
+     * @param int $num
+     */
+    public function listLastCustomer(int $num) {
         $CustomerDAO = new \model\CustomerDAO();
         $customers = $CustomerDAO->listLastCustomer($num);
         $this->getViewContent('listLastCustomer', array(
             'customers' => $customers), null);
     }
 
-    public function updateVisit($id) {
+    /**
+     * 
+     * @param type int $id
+     */
+    public function updateVisit(int $id) {
         $objet = new \model\Customer();
         $CustomerDAO = new \model\CustomerDAO();
         $objet = $CustomerDAO->selectOne($id);
@@ -107,7 +142,39 @@ class CustomerController extends Controller {
         }
         // Pour requête AJAX
         echo $result;
-        //return $result;
+    }
+
+    /**
+     * 
+     * @param type int $id
+     * @param type string $civility
+     * @param type string $lastname
+     * @param type string $firstname
+     * @param type string $address1
+     * @param type string $address2
+     * @param type string $zipcode
+     * @param type string $city
+     * @param type string $email
+     * @param type string $sms
+     * @param type int $suppression
+     */
+    public function updateCustomer(int $id, string $civility, string $lastname, string $firstname, string $address1, string $address2, string $zipcode, string $city, string $email, string $sms, int $suppression) {
+        $objet = new \model\Customer();
+        $CustomerDAO = new \model\CustomerDAO();
+        $objet->setCustomer_id($id);
+        $objet->setCustomer_civility($civility);
+        $objet->setCustomer_lastname($lastname);
+        $objet->setCustomer_firstname($firstname);
+        $objet->setCustomer_address1($address1);
+        $objet->setCustomer_address2($address2);
+        $objet->setCustomer_zipcode($zipcode);
+        $objet->setCustomer_city($city);
+        $objet->setCustomer_email($email);
+        $objet->setCustomer_sms($sms);
+        $objet->setCustomer_suppression_flag($suppression);
+        $result = $CustomerDAO->updateCustomer($objet);
+        // Pour requête AJAX
+        echo $result;
     }
 
 }
