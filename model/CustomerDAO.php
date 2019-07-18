@@ -57,19 +57,29 @@ class CustomerDAO extends DBAccess {
         $affectedRows = 0;
         try {
             $db = $this::getDBInstance();
-            $req = $db->prepare('INSERT INTO customers (customer_lastname,customer_firstname,customer_civility,customer_address1,customer_address2,customer_zipcode,customer_city,customer_email,customer_sms) VALUES(?,?,?,?,?,?,?,?,?)');
-            $req->bindValue(1, $objet->getCustomer_lastname(), \PDO::PARAM_STR);
-            $req->bindValue(2, $objet->getCustomer_firstname(), \PDO::PARAM_STR);
-            $req->bindValue(3, $objet->getCustomer_civility(), \PDO::PARAM_STR);
-            $req->bindValue(4, $objet->getCustomer_address1(), \PDO::PARAM_STR);
-            $req->bindValue(5, $objet->getCustomer_address2(), \PDO::PARAM_STR);
-            $req->bindValue(6, $objet->getCustomer_zipcode(), \PDO::PARAM_STR);
-            $req->bindValue(7, $objet->getCustomer_city(), \PDO::PARAM_STR);
-            $req->bindValue(8, $objet->getCustomer_email(), \PDO::PARAM_STR);
-            $req->bindValue(9, $objet->getCustomer_sms(), \PDO::PARAM_STR);
+            $req = $db->prepare('SELECT customer_email FROM customers WHERE customer_email = ?');
+            $req->bindValue(1, $objet->getCustomer_email(), \PDO::PARAM_STR);
             $req->setFetchMode(\PDO::FETCH_ASSOC);
             $req->execute();
             $affectedRows = $req->rowcount();
+            if ($affectedRows == 0) {
+                $req->closeCursor();
+                $req = $db->prepare('INSERT INTO customers (customer_lastname,customer_firstname,customer_civility,customer_address1,customer_address2,customer_zipcode,customer_city,customer_email,customer_sms) VALUES(?,?,?,?,?,?,?,?,?)');
+                $req->bindValue(1, $objet->getCustomer_lastname(), \PDO::PARAM_STR);
+                $req->bindValue(2, $objet->getCustomer_firstname(), \PDO::PARAM_STR);
+                $req->bindValue(3, $objet->getCustomer_civility(), \PDO::PARAM_STR);
+                $req->bindValue(4, $objet->getCustomer_address1(), \PDO::PARAM_STR);
+                $req->bindValue(5, $objet->getCustomer_address2(), \PDO::PARAM_STR);
+                $req->bindValue(6, $objet->getCustomer_zipcode(), \PDO::PARAM_STR);
+                $req->bindValue(7, $objet->getCustomer_city(), \PDO::PARAM_STR);
+                $req->bindValue(8, $objet->getCustomer_email(), \PDO::PARAM_STR);
+                $req->bindValue(9, $objet->getCustomer_sms(), \PDO::PARAM_STR);
+                $req->setFetchMode(\PDO::FETCH_ASSOC);
+                $req->execute();
+                $affectedRows = $req->rowcount();
+            }else{
+            $affectedRows = 0;    
+            }
         } catch (PDOException $e) {
             echo 'Échec lors de la connexion : ' . $e->getMessage();
             $affectedRows = -1;
@@ -406,12 +416,14 @@ class CustomerDAO extends DBAccess {
         $req->closeCursor();
         return $objets;
     }
-/**
- * 
- * @param \model\Customer $objet
- * @return type int
- */
+
+    /**
+     * 
+     * @param \model\Customer $objet
+     * @return type int
+     */
     public function updateVisit(Customer $objet) {
+        print_r($objet);
         $affectedRows = 0;
         try {
             $db = $this::getDBInstance();
@@ -424,11 +436,12 @@ class CustomerDAO extends DBAccess {
         }
         return $affectedRows;
     }
-public function updateCustomer(Customer $objet) {
+
+    public function updateCustomer(Customer $objet) {
         $affectedRows = 0;
         try {
             $db = $this::getDBInstance();
-            print_r($objet);
+            //print_r($objet);
             $req = $db->prepare('UPDATE customers SET customer_civility = ?, customer_lastname = ?, customer_firstname = ?, customer_address1 = ?, customer_address2 = ?,customer_zipcode = ?, customer_city = ?,customer_email = ?, customer_sms = ?,customer_suppression_flag = ?, customer_suppression = NOW() WHERE customer_id = ?');
             $req->bindValue(1, $objet->getCustomer_civility(), \PDO::PARAM_STR);
             $req->bindValue(2, $objet->getCustomer_lastname(), \PDO::PARAM_STR);
@@ -448,4 +461,5 @@ public function updateCustomer(Customer $objet) {
         }
         return $affectedRows;
     }
+
 }

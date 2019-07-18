@@ -19,7 +19,7 @@
         <div id="requeteLast"></div>
         <div id="requeteFind"></div>    
     </div>
-        <!-- MODAL ADD RESPONSE -->
+    <!-- MODAL ADD RESPONSE -->
     <div id="addCustomerModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -190,8 +190,28 @@
     var idVisit;
     var idEdit;
     function changeVisit(idVisit) {
-        $('#v' + idVisit).html("&#xe876;");
-        document.getElementById("v" + idVisit).className = ("material-icons delete");
+        /* $('#v' + idVisit).html("&#xe876;");
+                    document.getElementById("v" + idVisit).className = ("material-icons delete");*/
+        $.ajax({
+            type: 'POST',
+            url: '/routes.php?action=updateVisit',
+            data:
+                    {
+                        "id": idVisit,
+                    },
+            success: function (result) {
+                console.log(result + 'id=' + idVisit);
+                if (result = 1){
+                    $('#v' + idVisit).html("&#xe876;");
+                    document.getElementById("v" + idVisit).className = ("material-icons delete");
+              }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert(textStatus);
+                $("#retour").html("Erreur d\'envoi de la requête visite");
+            }
+        });
+
     }
     function ctrlEditCustomer() {
         msg = '';
@@ -250,9 +270,9 @@
         }
         // Monitoring des erreurs
         //console.log(msg);
-       /* document.getElementById("editMessage").innerHTML = msg;
-        $result = (msg != "" ? false : true);
-        return $result;*/
+        /* document.getElementById("editMessage").innerHTML = msg;
+         $result = (msg != "" ? false : true);
+         return $result;*/
         // Monitoring des erreurs
         $("#editMessage").html(msg);
         $result = (msg != "" ? false : true);
@@ -290,13 +310,12 @@
                 /*  $('[data-toggle="tooltip"]').tooltip();*/
                 $('a[class="visit"]').click(function () {
                     idVisit = this.getAttribute('value');
-                    //console.log(idVisit);
                 });
 
-                $('a[class="delete"]').click(function () {
+               /* $('a[class="delete"]').click(function () {
                     idDelete = this.getAttribute('value');
                     //console.log(idDelete);
-                });
+                });*/
                 $('a[class="edit"]').click(function () {
                     idEdit = this.getAttribute('editId');
                     if (this.getAttribute('editCivility') == 'MLLE')
@@ -408,7 +427,7 @@
                             },
                     // url: '/routes.php?action=addForm&name=' + $("#addName").val() + '&designation=' + $("#addDesignation").val() + '&category=' + $("#addCategory").val() + '&searchtype=' + $("#addSearchType").val(),
                     success: function (result) {
-                        console.log(result);
+                        //console.log(result);
                         $("#requeteFind").html(result);
                         document.getElementById("byname").value = "";
                         document.getElementById("bymail").value = "";
@@ -429,7 +448,7 @@
                     url: '/routes.php?action=deleteProduct&builderref=' + $("#addRefBuilder").val() + '&ref=' + $("#addRef").val() + '&model=' + $("#addModel").val() + '&builder=' + $("#addBuilder").val() + '&designation=' + $("#addDesignation").val() + '&ean=' + $("#addEan").val() + '&category=' + $("#addCategory").val(),
                     // url: '/routes.php?action=addForm&name=' + $("#addName").val() + '&designation=' + $("#addDesignation").val() + '&category=' + $("#addCategory").val() + '&searchtype=' + $("#addSearchType").val(),
                     success: function (data) {
-                        console.log(data + '/routes.php?action=addProduct&builderref=' + $("#addBuilderRef").val() + '&ref=' + $("#addRef").val() + '&model=' + $("#addModel").val() + '&builder=' + $("#addBuilder").val() + '&designation=' + $("#addDesignation").val() + '&ean=' + $("#addEan").val() + '&category=' + $("#addCategory").val());
+                        //console.log(data + '/routes.php?action=addProduct&builderref=' + $("#addBuilderRef").val() + '&ref=' + $("#addRef").val() + '&model=' + $("#addModel").val() + '&builder=' + $("#addBuilder").val() + '&designation=' + $("#addDesignation").val() + '&ean=' + $("#addEan").val() + '&category=' + $("#addCategory").val());
                         if (data != 1) {
                             $("#addMessage").html("Erreur d\'ajout" + data);
                         } else {
@@ -450,7 +469,7 @@
             // var next = this.getAttribute('id');
             // console.log(next);
             if (ctrlEditCustomer()) {
-                console.log('js' + $("#editLastName").val());
+                //console.log('js' + $("#editLastName").val());
                 $.ajax({
                     type: 'POST',
                     url: '/routes.php?action=updateCustomer',

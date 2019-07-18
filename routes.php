@@ -46,6 +46,9 @@ try {
                 $manageAdmin->controlSession();
 
                 break;
+             case 'MAJ':
+                header('Location: maj_membres.php');
+                break;
 
             case 'manageWebCustomer':
                 /* $id = filter_input(INPUT_GET, "id");
@@ -121,7 +124,8 @@ try {
                 }
                 break;
             case 'updateVisit':
-                $id = filter_input(INPUT_GET, "id");
+                $id = filter_input(INPUT_POST, "id");
+                echo ('route' . $id);
                 if (filter_var($id, FILTER_VALIDATE_INT) !== false) {
                     $manageCustomer = controller\CustomerController::getInstance();
                     $manageCustomer->updateVisit($id);
@@ -153,7 +157,7 @@ try {
                         && (filter_var($sms, FILTER_SANITIZE_STRING) !== false)
                         && (filter_var($suppression, FILTER_VALIDATE_INT) !== false)
                 ) {
-                    echo ('route' . $lastname);
+                    //echo ('route' . $lastname);
                     $manageCustomer = controller\CustomerController::getInstance();
                     $manageCustomer->updateCustomer($id,$civility,$lastname,$firstname,$address1,$address2,$zipcode,$city,$email,$sms,$suppression);
                 } else {
