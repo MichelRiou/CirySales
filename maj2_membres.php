@@ -1,5 +1,6 @@
 <script type="text/javascript">
     function getRadio() {
+        /* NOT USED HERE */
         var radioValue = '';
         for (i = 0; i < document.form2.civility.length; i++) {
             if (document.form2.civility[i].checked) {
@@ -29,45 +30,50 @@
             document.getElementById("firstname").focus();
             msg += 'Le prénom est obligatoire.<br>';
         }
-        if ((document.getElementById("sus")== null) || (!document.getElementById("sus").checked)){
-        if (document.getElementById("address1").value.length > 0
-                || document.getElementById("address2").value.length > 0
-                || document.getElementById("city").value.length > 0
-                || document.getElementById("zipcode").value.length > 0)
-        {
-            if (!checkAddress()) {
-                document.getElementById("address1").style.backgroundColor = "orange";
-                document.getElementById("city").style.backgroundColor = "orange";
-                document.getElementById("zipcode").style.backgroundColor = "orange";
-                document.getElementById("address1").focus();
-                msg += 'L\'adresse n\'est pas valide.<br>';
+        if ((!document.getElementById("sus")) || (document.getElementById("sus") == null) || (!document.getElementById("sus").checked)) {
+            if (document.getElementById("address1").value.length > 0
+                    || document.getElementById("address2").value.length > 0
+                    || document.getElementById("city").value.length > 0
+                    || document.getElementById("zipcode").value.length > 0)
+            {
+                if (!checkAddress()) {
+                    document.getElementById("address1").style.backgroundColor = "orange";
+                    document.getElementById("city").style.backgroundColor = "orange";
+                    document.getElementById("zipcode").style.backgroundColor = "orange";
+                    document.getElementById("address1").focus();
+                    msg += 'L\'adresse n\'est pas valide.<br>';
+                }
             }
+            if ((document.getElementById("email").value.length > 0) && (!checkMail()))
+            {
+                document.getElementById("email").style.backgroundColor = "orange";
+                document.getElementById("email").focus();
+                msg += 'L\'email n\'est pas valable.<br>';
+            }
+            if ((document.getElementById("sms").value.length > 0) && (!checkSms()))
+            {
+                document.getElementById("sms").style.backgroundColor = "orange";
+                document.getElementById("sms").focus();
+                msg += 'Le numéro de téléphone est incorrect.<br>';
+            }
+            if (!checkMail() && !checkSms() && !checkAddress()) {
+                document.getElementById("address1").style.backgroundColor = "orange";
+                document.getElementById("sms").style.backgroundColor = "orange";
+                document.getElementById("email").style.backgroundColor = "orange";
+                document.getElementById("email").focus();
+
+
+                msg += 'Vous devez saisir soit un email, un numéro de portable ou une adresse complète.';
+            }
+
         }
-        if ((document.getElementById("email").value.length > 0) && (!checkMail()))
-        {
-            document.getElementById("email").style.backgroundColor = "orange";
-            document.getElementById("email").focus();
-            msg += 'L\'email n\'est pas valable.<br>';
-        }
-        if ((document.getElementById("sms").value.length > 0) && (!checkSms()))
-        {
-            document.getElementById("sms").style.backgroundColor = "orange";
-            document.getElementById("sms").focus();
-            msg += 'Le numéro de téléphone est incorrect.<br>';
-        }
-        if (!checkMail()) {
-            document.getElementById("email").style.backgroundColor = "orange";
-            document.getElementById("email").focus();
-            msg += 'Vous devez saisir obligatoirement votre email.';
-        }
-         }
         // Monitoring des erreurs
         console.log(msg);
         document.getElementById("addMessage").innerHTML = msg;
         $result = (msg != "" ? false : true);
         return $result;
     }
-    </script>
+</script>
 <?php
 include("controller\connect.inc.php");
 if (isset($_GET['id']) and isset($_GET['type'])) {
@@ -87,7 +93,7 @@ if (isset($_GET['id']) and isset($_GET['type'])) {
 
             <link rel="stylesheet" type="text/css" href="../style_VC6.css" />
             <title>MISE A JOUR FICHIER MAILING</title>
-            <script type="text/javascript" language="javascript" src="../common_VC6.js"></script>
+            <script type="text/javascript" language="javascript" src="../public/js/common.js"></script>
         </head>
         <body>
             <form name="form4" action="maj3_membres.php" autocomplete="off" method="post" onSubmit="return ctrlAddCustomer()">
@@ -96,17 +102,17 @@ if (isset($_GET['id']) and isset($_GET['type'])) {
                         <caption style="background-color:#FFFFAA">MISE A JOUR</caption>
                         <tr><th class="TD0"><input type="hidden" name="type" value="<?php echo($_GET['type']) ?>"></th><th class="TD0"><input type="hidden" name="id" value="<?php echo($data5['customer_id']) ?>"></th></tr>   
                         <tr class="TD0"><td class="TD0">ID</td><td class="TD0"><?php echo ($data5['customer_id']) ?></td></tr>
-                        <tr class="TD0"><td class="TD0">POLITESSE</td><td class="TD0"><span><input type="radio" name="pol" value="Mme" <?php
+                        <tr class="TD0"><td class="TD0">POLITESSE</td><td class="TD0"><span><input type="radio" name="pol" value="MME" <?php
                                     if (($data5['customer_civility'] <> "MLLE") or ( $data5['customer_civility'] <> "MR")) {
                                         echo ('checked="checked"');
                                     }
                                     ?> >Mme</span>
-                                <span><input type="radio" name="pol" value="Mle" <?php
+                                <span><input type="radio" name="pol" value="MLLE" <?php
                                     if ($data5['customer_civility'] == "MLLE") {
                                         echo ('checked="checked"');
                                     }
                                     ?>>Mle</span>
-                                <span><input type="radio" name="pol" value="Mr" <?php
+                                <span><input type="radio" name="pol" value="MR" <?php
                                     if ($data5['customer_civility'] == "MR") {
                                         echo ('checked="checked"');
                                     }

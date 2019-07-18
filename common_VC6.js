@@ -81,7 +81,12 @@ function verif_form()
 
 
                 if (!checkMail() && !checkSms() && !checkAddress()) {
-
+                      document.getElementById("ad1").style.backgroundColor = "orange";
+                    document.getElementById("sms").style.backgroundColor = "orange";
+                    document.getElementById("email").style.backgroundColor = "orange";
+                    document.getElementById("email").focus();
+                  
+                    
                     msg += 'Vous devez saisir soit un email, un numéro de portable ou une adresse complète.';
                 }
 
