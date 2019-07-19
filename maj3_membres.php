@@ -17,7 +17,7 @@ if (isset($_POST['id'])) {
                 break;
             case "I":
                 if (isset($_POST['visite'])) {
-                    $result6 = $db->prepare('INSERT INTO customers (customer_lastname,customer_firstname,customer_civility,customer_address1, customer_address2,customer_zipcode,customer_country,customer_size,customer_email,customer_validation,customer_creation,customer_sms) VALUES (:QN1,:QN2,:QN3,:QN4,:QN5,:QN6,:QN7,:QN8,:QN9, NOW(),NOW(),:QN10)');
+                    $result6 = $db->prepare('INSERT INTO customers (customer_lastname,customer_firstname,customer_civility,customer_address1, customer_address2,customer_zipcode,customer_country,customer_size,customer_email,customer_last_visit,customer_creation,customer_sms) VALUES (:QN1,:QN2,:QN3,:QN4,:QN5,:QN6,:QN7,:QN8,:QN9, NOW(),NOW(),:QN10)');
                 } else {
                     $result6 = $db->prepare('INSERT INTO customers (customer_lastname,customer_firstname,customer_civility,customer_address1, customer_address2,customer_zipcode,customer_country,customer_size,customer_email,customer_creation,customer_sms) VALUES (:QN1,:QN2,:QN3,:QN4,:QN5,:QN6,:QN7,:QN8,:QN9,NOW(),:QN10)');
                 }
