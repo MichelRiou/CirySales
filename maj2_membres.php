@@ -75,7 +75,9 @@
     }
 </script>
 <?php
-include("controller\connect.inc.php");
+$fichier = "controller".DIRECTORY_SEPARATOR."connect.inc.php";
+include($fichier);
+//include("controller\connect.inc.php");
 if (isset($_GET['id']) and isset($_GET['type'])) {
     try {
         $result5 = $db->prepare('SELECT * FROM customers WHERE customer_id = :QN1 ');

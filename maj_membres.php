@@ -104,8 +104,9 @@ function verif_form()
             }
 </script>
 <?php
-echo ('toto');
-include("controller\connect.inc.php");
+$fichier = "controller".DIRECTORY_SEPARATOR."connect.inc.php";
+include($fichier);
+//include("controller/connect.inc.php");
 $choix = 0;
 if (filter_input(INPUT_POST, 'select_nom') !== null and ( filter_input(INPUT_POST, 'select_nom') <> '')) {
     $savnom = filter_input(INPUT_POST, 'select_nom');

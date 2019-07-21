@@ -11,8 +11,7 @@ try {
     $db = new PDO("$protocole:host=$serveur;" . "dbname=$bd;charset=utf8", $user, $mdp);
     $db->exec('SET NAMES utf8');
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo ('OK');
-} catch (PDOException $e) {
+ } catch (PDOException $e) {
     echo "Erreur de connexion au serveur.<BR>";
     echo "Site indisponible.<BR>";
     mail("m.riou@mdaparis.fr", "Erreur de connexion", "Erreur de connexion à la BD \n" . $_POST['email'] . "\n"

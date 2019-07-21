@@ -1,5 +1,7 @@
 <?php
-include("controller\connect.inc.php");
+$fichier = "controller".DIRECTORY_SEPARATOR."connect.inc.php";
+include($fichier);
+//include("controller\connect.inc.php");
 if (isset($_POST['id'])) {
   
     try {
